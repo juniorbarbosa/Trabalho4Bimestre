@@ -45,6 +45,12 @@ public class TelaPrincipal extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
+		JMenu mnVenda = new JMenu("Venda");
+		menuBar.add(mnVenda);
+
+		JMenuItem mntmEfetuarVenda = new JMenuItem("Efetuar Venda");
+		mnVenda.add(mntmEfetuarVenda);
+
 		JMenu mnCadastro = new JMenu("Cadastros");
 		menuBar.add(mnCadastro);
 
@@ -55,6 +61,18 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		mnCadastro.add(mntmCliente);
+
+		JMenuItem mntmUsurio = new JMenuItem("Usu\u00E1rio");
+		mnCadastro.add(mntmUsurio);
+
+		JMenuItem mntmProduto = new JMenuItem("Produto");
+		mntmProduto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				abrirTelaCadastroProduto();
+			}
+
+		});
+		mnCadastro.add(mntmProduto);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -65,6 +83,9 @@ public class TelaPrincipal extends JFrame {
 
 	}
 
+	/**
+	 * Método para abrir a aba do cadastro de cliente
+	 */
 	private void abrirTelaCadastroCliente() {
 		final TelaCadastroCliente telaCadastroCliente = new TelaCadastroCliente();
 		ActionListener action = new ActionListener() {
@@ -74,5 +95,19 @@ public class TelaPrincipal extends JFrame {
 		};
 		telaCadastroCliente.setCloseAction(action);
 		tabbedPane.addTab("Cadastro de Cliente", telaCadastroCliente);
+	}
+
+	/**
+	 * Método para abrir a aba do cadastro de cliente
+	 */
+	private void abrirTelaCadastroProduto() {
+		final TelaCadastroProduto telaCadastroProduto = new TelaCadastroProduto();
+		ActionListener action = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tabbedPane.remove(telaCadastroProduto);
+			}
+		};
+		telaCadastroProduto.setCloseAction(action);
+		tabbedPane.addTab("Cadastro de Produto", telaCadastroProduto);
 	}
 }

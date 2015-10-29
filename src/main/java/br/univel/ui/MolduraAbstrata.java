@@ -41,13 +41,6 @@ public abstract class MolduraAbstrata extends JPanel {
 		gbl_panel.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
-		JLabel lblOl = new JLabel("Ol\u00E1");
-		GridBagConstraints gbc_lblOl = new GridBagConstraints();
-		gbc_lblOl.insets = new Insets(0, 0, 0, 5);
-		gbc_lblOl.gridx = 0;
-		gbc_lblOl.gridy = 0;
-		panel.add(lblOl, gbc_lblOl);
-
 		btnFechar = new JButton("Fechar");
 		GridBagConstraints gbc_btnFechar = new GridBagConstraints();
 		gbc_btnFechar.anchor = GridBagConstraints.EAST;
