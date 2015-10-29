@@ -27,6 +27,7 @@ public class TelaPrincipal extends JFrame {
 				try {
 					TelaPrincipal frame = new TelaPrincipal();
 					frame.setVisible(true);
+					frame.setExtendedState(MAXIMIZED_BOTH);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -50,7 +51,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmCliente = new JMenuItem("Cliente");
 		mntmCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				abrirTela();
+				abrirTelaCadastroCliente();
 			}
 		});
 		mnCadastro.add(mntmCliente);
@@ -64,7 +65,7 @@ public class TelaPrincipal extends JFrame {
 
 	}
 
-	private void abrirTela() {
+	private void abrirTelaCadastroCliente() {
 		final TelaCadastroCliente telaCadastroCliente = new TelaCadastroCliente();
 		ActionListener action = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
