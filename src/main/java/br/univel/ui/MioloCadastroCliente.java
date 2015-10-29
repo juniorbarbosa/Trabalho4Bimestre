@@ -1,15 +1,32 @@
 package br.univel.ui;
 
 import javax.swing.JPanel;
+
 import java.awt.GridBagLayout;
+
 import javax.swing.JLabel;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.TableModel;
+
+import br.univel.util.Cliente;
+import br.univel.util.Estado;
+import br.univel.util.Genero;
+
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+
+import javax.swing.JComboBox;
 
 /**
  * 
@@ -22,12 +39,13 @@ public class MioloCadastroCliente extends JPanel {
 	private JTextField tfxEndereco;
 	private JTextField tfxTelefone;
 	private JTextField tfxCidade;
-	private JTextField tfxUf;
 	private JLabel lblEmail;
 	private JLabel lblG;
 	private JTextField tfxEmail;
-	private JTextField tfxGenero;
 	private JTable table;
+	private TabelaCadastroCliente model = new TabelaCadastroCliente();
+	private JComboBox cbxEstado;
+	private JComboBox cbxGenero;
 
 	/**
 	 * Create the frame.
@@ -146,16 +164,14 @@ public class MioloCadastroCliente extends JPanel {
 		gbc_lblUf.gridy = 5;
 		add(lblUf, gbc_lblUf);
 
-		tfxUf = new JTextField();
-		tfxUf.setColumns(10);
-		GridBagConstraints gbc_tfxUf = new GridBagConstraints();
-		gbc_tfxUf.anchor = GridBagConstraints.NORTH;
-		gbc_tfxUf.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfxUf.insets = new Insets(0, 0, 5, 0);
-		gbc_tfxUf.gridwidth = 4;
-		gbc_tfxUf.gridx = 1;
-		gbc_tfxUf.gridy = 5;
-		add(tfxUf, gbc_tfxUf);
+		cbxEstado = new JComboBox();
+		GridBagConstraints gbc_cbxEstado = new GridBagConstraints();
+		gbc_cbxEstado.gridwidth = 4;
+		gbc_cbxEstado.insets = new Insets(0, 0, 5, 0);
+		gbc_cbxEstado.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbxEstado.gridx = 1;
+		gbc_cbxEstado.gridy = 5;
+		add(cbxEstado, gbc_cbxEstado);
 
 		lblEmail = new JLabel("Email");
 		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
@@ -184,16 +200,14 @@ public class MioloCadastroCliente extends JPanel {
 		gbc_lblG.gridy = 7;
 		add(lblG, gbc_lblG);
 
-		tfxGenero = new JTextField();
-		tfxGenero.setColumns(10);
-		GridBagConstraints gbc_tfxGenero = new GridBagConstraints();
-		gbc_tfxGenero.anchor = GridBagConstraints.NORTH;
-		gbc_tfxGenero.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfxGenero.insets = new Insets(0, 0, 5, 0);
-		gbc_tfxGenero.gridwidth = 4;
-		gbc_tfxGenero.gridx = 1;
-		gbc_tfxGenero.gridy = 7;
-		add(tfxGenero, gbc_tfxGenero);
+		cbxGenero = new JComboBox();
+		GridBagConstraints gbc_cbxGenero = new GridBagConstraints();
+		gbc_cbxGenero.gridwidth = 4;
+		gbc_cbxGenero.insets = new Insets(0, 0, 5, 5);
+		gbc_cbxGenero.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbxGenero.gridx = 1;
+		gbc_cbxGenero.gridy = 7;
+		add(cbxGenero, gbc_cbxGenero);
 
 		JButton btnAlterar = new JButton("Alterar");
 		GridBagConstraints gbc_btnAlterar = new GridBagConstraints();
@@ -215,6 +229,11 @@ public class MioloCadastroCliente extends JPanel {
 		add(btnExcluir, gbc_btnExcluir);
 
 		JButton btnGravar = new JButton("Gravar");
+		btnGravar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				adicionarCliente();
+			}
+		});
 		GridBagConstraints gbc_btnGravar = new GridBagConstraints();
 		gbc_btnGravar.fill = GridBagConstraints.BOTH;
 		gbc_btnGravar.insets = new Insets(0, 0, 5, 0);
@@ -230,7 +249,53 @@ public class MioloCadastroCliente extends JPanel {
 		gbc_scrollPane.gridy = 9;
 		add(scrollPane, gbc_scrollPane);
 
-		table = new JTable();
+		table = new JTable(model);
 		scrollPane.setViewportView(table);
+
+		adicionarEnumComboBoxEstado();
+		adicionarEnumComboBoxGenero();
+
 	}
+
+	protected void adicionarCliente() {
+		String id = tfxId.getText().trim();
+		String nome = tfxNome.getText().trim();
+		String endereco = tfxEndereco.getText().trim();
+		String telefone = tfxTelefone.getText().trim();
+		String cidade = tfxCidade.getText().trim();
+		Object estado = cbxEstado.getSelectedItem();
+		String email = tfxEmail.getText().trim();
+		Object genero = cbxGenero.getSelectedItem();
+
+		Cliente cliente = new Cliente();
+		cliente.setId(id);
+		cliente.setNome(nome);
+		cliente.setEndereco(endereco);
+		cliente.setTelefone(telefone);
+		cliente.setCidade(cidade);
+		cliente.setEstado((Estado) estado);
+		cliente.setEmail(email);
+		cliente.setGenero((Genero) genero);
+
+		model.adicionarClienteTabela(cliente);
+	}
+
+	/**
+	 * Adiciona os atributos da Enum Estado no comboBox Estado
+	 */
+	private void adicionarEnumComboBoxEstado() {
+		Estado[] estados = Estado.values();
+		ComboBoxModel cbxModelEstado = new DefaultComboBoxModel(estados);
+		cbxEstado.setModel(cbxModelEstado);
+	}
+
+	/**
+	 * Adiciona os atributos da Enum Genero no comboBox Genero
+	 */
+	private void adicionarEnumComboBoxGenero() {
+		Genero[] generos = Genero.values();
+		ComboBoxModel cbxModelGenero = new DefaultComboBoxModel(generos);
+		cbxGenero.setModel(cbxModelGenero);
+	}
+
 }
