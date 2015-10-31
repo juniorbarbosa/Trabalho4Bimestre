@@ -24,6 +24,9 @@ import br.univel.util.Genero;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -260,6 +263,7 @@ public class MioloCadastroCliente extends JPanel {
 
 		atualizaTabela();
 		initMioloCadastroCliente();
+		adicionarValorCampos();
 
 	}
 
@@ -313,6 +317,35 @@ public class MioloCadastroCliente extends JPanel {
 		cbxEstado.setSelectedItem(null);
 		cbxGenero.setSelectedItem(null);
 
+	}
+
+	/**
+	 * adiciona o evento do mouse ao clicar 2 vezes e adicionado nos campos os respectivos valores
+	 * do campo selecionado
+	 */
+	private void adicionarValorCampos() {
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					carregaContato(model.getLista().get(table.getSelectedRow()));
+				}
+			}
+
+		});
+	}
+
+	/**
+	 * 
+	 * carrega o contato selecionado
+	 */
+	private void carregaContato(Cliente cliente) {
+		tfxId.setText(Integer.toString(cliente.getId()));
+		tfxNome.setText(cliente.getNome());
+		tfxEndereco.setText(cliente.getEndereco());
+		tfxTelefone.setText(cliente.getTelefone());
+		tfxCidade.setText(cliente.getCidade());
+		tfxEmail.setText(cliente.getEmail());
 	}
 
 	/**
