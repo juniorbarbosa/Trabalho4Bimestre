@@ -14,6 +14,15 @@ public class TabelaCadastroCliente extends AbstractTableModel {
 
 	private ArrayList<Cliente> lista = new ArrayList<Cliente>();
 
+	public ArrayList<Cliente> getLista() {
+		return lista;
+	}
+
+	public void setLista(ArrayList<Cliente> lista) {
+		this.lista = (ArrayList<Cliente>) lista;
+		this.fireTableDataChanged();
+	}
+
 	public int getRowCount() {
 		return lista.size();
 	}
@@ -55,7 +64,7 @@ public class TabelaCadastroCliente extends AbstractTableModel {
 		case 2:
 			return "Telefone";
 		case 3:
-			return "Endereco";
+			return "Endereço";
 		case 4:
 			return "Cidade";
 		case 5:
