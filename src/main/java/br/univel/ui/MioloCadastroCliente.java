@@ -213,6 +213,11 @@ public class MioloCadastroCliente extends JPanel {
 		add(cbxGenero, gbc_cbxGenero);
 
 		JButton btnAlterar = new JButton("Alterar");
+		btnAlterar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				alterarCliente();
+			}
+		});
 		GridBagConstraints gbc_btnAlterar = new GridBagConstraints();
 		gbc_btnAlterar.fill = GridBagConstraints.BOTH;
 		gbc_btnAlterar.insets = new Insets(0, 0, 5, 5);
@@ -311,6 +316,30 @@ public class MioloCadastroCliente extends JPanel {
 		atualizaTabela();
 	}
 
+	protected void alterarCliente() {
+		String id = tfxId.getText().trim();
+		String nome = tfxNome.getText().trim();
+		String endereco = tfxEndereco.getText().trim();
+		String telefone = tfxTelefone.getText().trim();
+		String cidade = tfxCidade.getText().trim();
+		String email = tfxEmail.getText().trim();
+
+		Cliente cliente = new Cliente();
+		cliente.setId(Integer.parseInt(id));
+		cliente.setNome(nome);
+		cliente.setEndereco(endereco);
+		cliente.setTelefone(telefone);
+		cliente.setCidade(cidade);
+		cliente.setEmail(email);
+
+		limparCampos();
+
+		alteraClienteBancoDados(cliente);
+
+		atualizaTabela();
+
+	}
+
 	private void limparCampos() {
 		tfxId.setText("");
 		tfxNome.setText("");
@@ -320,7 +349,6 @@ public class MioloCadastroCliente extends JPanel {
 		tfxEmail.setText("");
 		cbxEstado.setSelectedItem(null);
 		cbxGenero.setSelectedItem(null);
-
 	}
 
 	/**
@@ -390,10 +418,21 @@ public class MioloCadastroCliente extends JPanel {
 			AtualizadorBancoDados atualiza = new AtualizadorBancoDados();
 			atualiza.deletaClienteBanco(cliente);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+	}
+
+	/**
+	 * Método para alterar cliente no Banco de Dados
+	 */
+	private void alteraClienteBancoDados(Cliente cliente) {
+		try {
+			AtualizadorBancoDados atualiza = new AtualizadorBancoDados();
+			atualiza.alteraClienteBanco(cliente);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
