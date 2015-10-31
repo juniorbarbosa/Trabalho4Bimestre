@@ -73,10 +73,30 @@ public class AtualizadorBancoDados {
 
 		ps.close();
 	}
+/**
+ * 
+ * Método para alterar o cliente no BD
+ */
+	public void alteraClienteBanco(Cliente c) throws SQLException {
+		PreparedStatement ps = con
+				.prepareStatement("update cliente set nome = ?,telefone = ?, endereco = ?, cidade = ?, email = ? where idcliente = ?");
 
-	/*
-	 *Cria uma lista de cliente para apresentar na tabela os dados do BD. 
-	 */
+		ps.setString(1, c.getNome());
+		ps.setString(2, c.getTelefone());
+		ps.setString(3, c.getEndereco());
+		ps.setString(4, c.getCidade());
+		ps.setString(5, c.getEmail());
+		ps.setInt(6, c.getId());
+
+		ps.executeUpdate();
+
+		ps.close();
+
+	}
+
+	// /*
+	// *Cria uma lista de cliente para apresentar na tabela os dados do BD.
+	// */
 	public List<Cliente> listaCliente() throws SQLException {
 		String sql = "SELECT * FROM CLIENTE";
 		List<Cliente> lista = new ArrayList<Cliente>();

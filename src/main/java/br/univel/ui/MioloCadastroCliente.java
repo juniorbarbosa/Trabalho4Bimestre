@@ -295,8 +295,8 @@ public class MioloCadastroCliente extends JPanel {
 
 		limparCampos();
 
-		model.adicionarClienteTabela(cliente);
 		gravaCLienteBandoDados(cliente);
+		atualizaTabela();
 	}
 
 	private void exluirCliente() {
@@ -304,7 +304,11 @@ public class MioloCadastroCliente extends JPanel {
 		Cliente cliente = new Cliente();
 		cliente.setId(Integer.parseInt(id));
 
+		limparCampos();
+
 		excluiClienteBancoDados(cliente);
+
+		atualizaTabela();
 	}
 
 	private void limparCampos() {
@@ -320,8 +324,8 @@ public class MioloCadastroCliente extends JPanel {
 	}
 
 	/**
-	 * adiciona o evento do mouse ao clicar 2 vezes e adicionado nos campos os respectivos valores
-	 * do campo selecionado
+	 * adiciona o evento do mouse ao clicar 2 vezes e adicionado nos campos os
+	 * respectivos valores do campo selecionado
 	 */
 	private void adicionarValorCampos() {
 		table.addMouseListener(new MouseAdapter() {
@@ -331,7 +335,6 @@ public class MioloCadastroCliente extends JPanel {
 					carregaContato(model.getLista().get(table.getSelectedRow()));
 				}
 			}
-
 		});
 	}
 

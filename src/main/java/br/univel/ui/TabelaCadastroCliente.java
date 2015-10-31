@@ -77,10 +77,4 @@ public class TabelaCadastroCliente extends AbstractTableModel {
 		return "Erro";
 	}
 
-	public void adicionarClienteTabela(Cliente c) {
-		this.lista.add(c);
-		int row = this.lista.size() - 1;
-		super.fireTableStructureChanged();
-	}
-
 }
