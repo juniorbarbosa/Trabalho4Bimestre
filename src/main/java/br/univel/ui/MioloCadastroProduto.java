@@ -32,6 +32,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class MioloCadastroProduto extends JPanel {
 	private JTextField tfxId;
@@ -216,6 +217,11 @@ public class MioloCadastroProduto extends JPanel {
 		add(btnNewButton_2, gbc_btnNewButton_2);
 
 		JButton btnNewButton_1 = new JButton("Excluir");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				excluirProduto();
+			}
+		});
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.anchor = GridBagConstraints.NORTH;
 		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
@@ -247,10 +253,19 @@ public class MioloCadastroProduto extends JPanel {
 		table = new JTable(model);
 		scrollPane.setViewportView(table);
 
+		initTelaProduto();
+
+	}
+
+	/**
+	 * método que iniciara todos os métodos
+	 */
+
+	private void initTelaProduto() {
 		adicionarEnumComboBoxCategoria();
 		adicionarEnumComboBoxUnidade();
 		limparCampos();
-
+		atualizaTabela();
 	}
 
 	/**
@@ -275,7 +290,6 @@ public class MioloCadastroProduto extends JPanel {
 	 * método para adicionar produto no Bd.
 	 */
 	private void adicionarProduto() {
-
 		String id = tfxId.getText().trim();
 		String nome = tfxNome.getText().trim();
 		String codigoBarra = tfxCodigoBarra.getText().trim();
@@ -298,7 +312,23 @@ public class MioloCadastroProduto extends JPanel {
 		limparCampos();
 
 		gravaProdutoBancoDados(produto);
-		// atualizaTabela();
+		atualizaTabela();
+	}
+
+	/**
+	 * Método para excluir Produto do BD.
+	 */
+	private void excluirProduto() {
+		String id = tfxId.getText().trim();
+
+		Produto produto = new Produto();
+		produto.setId(Integer.parseInt(id));
+
+		limparCampos();
+
+		excluiProdutoBancoDados(produto);
+
+		atualizaTabela();
 	}
 
 	/**
@@ -306,10 +336,23 @@ public class MioloCadastroProduto extends JPanel {
 	 * 
 	 * @param produto
 	 */
-	protected void gravaProdutoBancoDados(Produto produto) {
+	private void gravaProdutoBancoDados(Produto produto) {
 		try {
 			AtualizadorBancoDados atualizador = new AtualizadorBancoDados();
 			atualizador.gravaProdutoBanco(produto);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * Método para excluir Produto do BD.
+	 */
+	private void excluiProdutoBancoDados(Produto produto) {
+		try {
+			AtualizadorBancoDados atualiza = new AtualizadorBancoDados();
+			atualiza.deletaProdutoBanco(produto);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -326,5 +369,18 @@ public class MioloCadastroProduto extends JPanel {
 		tfxDescricao.setText("");
 		cbxCategoria.setSelectedItem(null);
 		cbxUnidade.setSelectedItem(null);
+	}
+
+	/**
+	 * Atualiza tabela com os dados diretos do BD.
+	 */
+	private void atualizaTabela() {
+		try {
+			AtualizadorBancoDados tabela = new AtualizadorBancoDados();
+			model.setLista((ArrayList<Produto>) tabela.listaProduto());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 }

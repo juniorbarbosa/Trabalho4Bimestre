@@ -147,19 +147,18 @@ public class AtualizadorBancoDados {
 
 	/**
 	 * 
-	 * @param cliente
+	 * @param produto
 	 * @throws SQLException
 	 *             Método para deletar o produto no Banco de Dados
 	 */
-	public void deletaProdutoBanco(Cliente cliente) throws SQLException {
-		// PreparedStatement ps = con
-		// .prepareStatement("delete from Cliente where idcliente = ?");
-		//
-		// ps.setInt(1, cliente.getId());
-		//
-		// ps.executeUpdate();
-		//
-		// ps.close();
+	public void deletaProdutoBanco(Produto produto) throws SQLException {
+		 PreparedStatement ps = con.prepareStatement("delete from Produto where idproduto = ?");
+		
+		 ps.setInt(1, produto.getId());
+		
+		 ps.executeUpdate();
+		
+		 ps.close();
 	}
 
 	/**
