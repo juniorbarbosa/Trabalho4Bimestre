@@ -186,7 +186,7 @@ public class AtualizadorBancoDados {
 	}
 
 	// /*
-	// *Cria uma lista de cliente para apresentar na tabela os dados do BD.
+	// *Cria uma lista de Produtos para apresentar na tabela do BD.
 	// */
 	public List<Produto> listaProduto() throws SQLException {
 		String sql = "SELECT * FROM PRODUTO";
@@ -197,12 +197,12 @@ public class AtualizadorBancoDados {
 			Produto produto = new Produto();
 			produto.setId(rs.getInt("IDPRODUTO"));
 			produto.setNome(rs.getString("NOME"));
-			// produto.setEndereco(rs.getString("CODIGOBARRA"));
-			// produto.setTelefone(rs.getString("CATEGORIA"));
-			// produto.setCidade(rs.getString("DESCRICAO"));
-			// produto.setEmail(rs.getString("UNIDADE"));
-			// produto.setEstado(Estado.valueOf(rs.getString("CUSTO")));
-			// produto.setGenero(Genero.valueOf(rs.getString("MARGEMLUCRO")));
+			produto.setCodigoBarra(rs.getString("CODIGOBARRA"));
+			produto.setCategoria(Categoria.valueOf(rs.getString("CATEGORIA")));
+			produto.setDescricao(rs.getString("DESCRICAO"));
+			produto.setUnidade(Unidade.valueOf(rs.getString("UNIDADE")));
+			// ps.setObject(7, produto.getCusto().toString());
+			// ps.setObject(8, produto.getMargemLucro().toString());
 
 			lista.add(produto);
 		}
