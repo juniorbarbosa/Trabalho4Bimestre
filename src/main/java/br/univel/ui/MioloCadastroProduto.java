@@ -249,6 +249,7 @@ public class MioloCadastroProduto extends JPanel {
 
 		adicionarEnumComboBoxCategoria();
 		adicionarEnumComboBoxUnidade();
+		limparCampos();
 
 	}
 
@@ -281,9 +282,9 @@ public class MioloCadastroProduto extends JPanel {
 		Object categoria = cbxCategoria.getSelectedItem();
 		String descricao = tfxDescricao.getText().trim();
 		Object unidade = cbxUnidade.getSelectedItem();
-//		BigDecimal custo = tfxCusto.getText().trim();
-//		BigDecimal margemLucro = tfxMargemLucro.getText().trim();
-		
+		// BigDecimal custo = tfxCusto.getText().trim();
+		// BigDecimal margemLucro = tfxMargemLucro.getText().trim();
+
 		Produto produto = new Produto();
 		produto.setId(Integer.parseInt(id));
 		produto.setNome(nome);
@@ -291,15 +292,20 @@ public class MioloCadastroProduto extends JPanel {
 		produto.setCategoria((Categoria) categoria);
 		produto.setDescricao(descricao);
 		produto.setUnidade((Unidade) unidade);
-//		p.setCusto(custo);
-//		p.setMargemLucro(margemLucro);
-		
-		 limparCampos();
+		// p.setCusto(custo);
+		// p.setMargemLucro(margemLucro);
+
+		limparCampos();
 
 		gravaProdutoBancoDados(produto);
 		// atualizaTabela();
 	}
 
+	/**
+	 * Método para gravar o cliente no Bd.
+	 * 
+	 * @param produto
+	 */
 	protected void gravaProdutoBancoDados(Produto produto) {
 		try {
 			AtualizadorBancoDados atualizador = new AtualizadorBancoDados();
@@ -309,9 +315,16 @@ public class MioloCadastroProduto extends JPanel {
 		}
 
 	}
-	
 
+	/**
+	 * método para limpar os campos
+	 */
 	private void limparCampos() {
-		
+		tfxId.setText("");
+		tfxNome.setText("");
+		tfxCodigoBarra.setText("");
+		tfxDescricao.setText("");
+		cbxCategoria.setSelectedItem(null);
+		cbxUnidade.setSelectedItem(null);
 	}
 }
