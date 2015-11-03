@@ -20,20 +20,26 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import br.univel.util.AtualizadorBancoDados;
 import br.univel.util.Categoria;
+import br.univel.util.Cliente;
 import br.univel.util.Estado;
+import br.univel.util.Genero;
+import br.univel.util.Produto;
 import br.univel.util.Unidade;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.math.BigDecimal;
+import java.sql.SQLException;
 
 public class MioloCadastroProduto extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_4;
-	private JTextField textField_6;
-	private JTextField textField_7;
+	private JTextField tfxId;
+	private JTextField tfxNome;
+	private JTextField tfxCodigoBarra;
+	private JTextField tfxDescricao;
+	private JTextField tfxCusto;
+	private JTextField tfxMargemLucro;
 	private JTable table;
 	private TabelaCadastroProduto model = new TabelaCadastroProduto();
 	private JComboBox cbxCategoria;
@@ -61,16 +67,16 @@ public class MioloCadastroProduto extends JPanel {
 		gbc_lblNewLabel.gridy = 0;
 		add(lblNewLabel, gbc_lblNewLabel);
 
-		textField = new JTextField();
-		textField.setColumns(10);
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.anchor = GridBagConstraints.NORTH;
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.gridwidth = 3;
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 0;
-		add(textField, gbc_textField);
+		tfxId = new JTextField();
+		tfxId.setColumns(10);
+		GridBagConstraints gbc_tfxId = new GridBagConstraints();
+		gbc_tfxId.anchor = GridBagConstraints.NORTH;
+		gbc_tfxId.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfxId.insets = new Insets(0, 0, 5, 0);
+		gbc_tfxId.gridwidth = 3;
+		gbc_tfxId.gridx = 1;
+		gbc_tfxId.gridy = 0;
+		add(tfxId, gbc_tfxId);
 
 		JLabel lblNewLabel_1 = new JLabel("Nome");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
@@ -80,16 +86,16 @@ public class MioloCadastroProduto extends JPanel {
 		gbc_lblNewLabel_1.gridy = 1;
 		add(lblNewLabel_1, gbc_lblNewLabel_1);
 
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.anchor = GridBagConstraints.NORTH;
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_1.gridwidth = 3;
-		gbc_textField_1.gridx = 1;
-		gbc_textField_1.gridy = 1;
-		add(textField_1, gbc_textField_1);
+		tfxNome = new JTextField();
+		tfxNome.setColumns(10);
+		GridBagConstraints gbc_tfxNome = new GridBagConstraints();
+		gbc_tfxNome.anchor = GridBagConstraints.NORTH;
+		gbc_tfxNome.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfxNome.insets = new Insets(0, 0, 5, 0);
+		gbc_tfxNome.gridwidth = 3;
+		gbc_tfxNome.gridx = 1;
+		gbc_tfxNome.gridy = 1;
+		add(tfxNome, gbc_tfxNome);
 
 		JLabel lblNewLabel_2 = new JLabel("C\u00F3digo de Barra");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -99,16 +105,16 @@ public class MioloCadastroProduto extends JPanel {
 		gbc_lblNewLabel_2.gridy = 2;
 		add(lblNewLabel_2, gbc_lblNewLabel_2);
 
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-		gbc_textField_2.anchor = GridBagConstraints.NORTH;
-		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_2.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_2.gridwidth = 3;
-		gbc_textField_2.gridx = 1;
-		gbc_textField_2.gridy = 2;
-		add(textField_2, gbc_textField_2);
+		tfxCodigoBarra = new JTextField();
+		tfxCodigoBarra.setColumns(10);
+		GridBagConstraints gbc_tfxCodigoBarra = new GridBagConstraints();
+		gbc_tfxCodigoBarra.anchor = GridBagConstraints.NORTH;
+		gbc_tfxCodigoBarra.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfxCodigoBarra.insets = new Insets(0, 0, 5, 0);
+		gbc_tfxCodigoBarra.gridwidth = 3;
+		gbc_tfxCodigoBarra.gridx = 1;
+		gbc_tfxCodigoBarra.gridy = 2;
+		add(tfxCodigoBarra, gbc_tfxCodigoBarra);
 
 		JLabel lblNewLabel_3 = new JLabel("Categoria");
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
@@ -135,16 +141,16 @@ public class MioloCadastroProduto extends JPanel {
 		gbc_lblNewLabel_4.gridy = 4;
 		add(lblNewLabel_4, gbc_lblNewLabel_4);
 
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
-		gbc_textField_4.anchor = GridBagConstraints.NORTH;
-		gbc_textField_4.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_4.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_4.gridwidth = 3;
-		gbc_textField_4.gridx = 1;
-		gbc_textField_4.gridy = 4;
-		add(textField_4, gbc_textField_4);
+		tfxDescricao = new JTextField();
+		tfxDescricao.setColumns(10);
+		GridBagConstraints gbc_tfxDescricao = new GridBagConstraints();
+		gbc_tfxDescricao.anchor = GridBagConstraints.NORTH;
+		gbc_tfxDescricao.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfxDescricao.insets = new Insets(0, 0, 5, 0);
+		gbc_tfxDescricao.gridwidth = 3;
+		gbc_tfxDescricao.gridx = 1;
+		gbc_tfxDescricao.gridy = 4;
+		add(tfxDescricao, gbc_tfxDescricao);
 
 		JLabel lblNewLabel_5 = new JLabel("Unidade");
 		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
@@ -171,16 +177,16 @@ public class MioloCadastroProduto extends JPanel {
 		gbc_lblNewLabel_6.gridy = 6;
 		add(lblNewLabel_6, gbc_lblNewLabel_6);
 
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		GridBagConstraints gbc_textField_6 = new GridBagConstraints();
-		gbc_textField_6.anchor = GridBagConstraints.NORTH;
-		gbc_textField_6.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_6.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_6.gridwidth = 3;
-		gbc_textField_6.gridx = 1;
-		gbc_textField_6.gridy = 6;
-		add(textField_6, gbc_textField_6);
+		tfxCusto = new JTextField();
+		tfxCusto.setColumns(10);
+		GridBagConstraints gbc_tfxCusto = new GridBagConstraints();
+		gbc_tfxCusto.anchor = GridBagConstraints.NORTH;
+		gbc_tfxCusto.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfxCusto.insets = new Insets(0, 0, 5, 0);
+		gbc_tfxCusto.gridwidth = 3;
+		gbc_tfxCusto.gridx = 1;
+		gbc_tfxCusto.gridy = 6;
+		add(tfxCusto, gbc_tfxCusto);
 
 		JLabel lblNewLabel_7 = new JLabel("Margem de Lucro");
 		GridBagConstraints gbc_lblNewLabel_7 = new GridBagConstraints();
@@ -190,16 +196,16 @@ public class MioloCadastroProduto extends JPanel {
 		gbc_lblNewLabel_7.gridy = 7;
 		add(lblNewLabel_7, gbc_lblNewLabel_7);
 
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		GridBagConstraints gbc_textField_7 = new GridBagConstraints();
-		gbc_textField_7.anchor = GridBagConstraints.NORTH;
-		gbc_textField_7.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_7.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_7.gridwidth = 3;
-		gbc_textField_7.gridx = 1;
-		gbc_textField_7.gridy = 7;
-		add(textField_7, gbc_textField_7);
+		tfxMargemLucro = new JTextField();
+		tfxMargemLucro.setColumns(10);
+		GridBagConstraints gbc_tfxMargemLucro = new GridBagConstraints();
+		gbc_tfxMargemLucro.anchor = GridBagConstraints.NORTH;
+		gbc_tfxMargemLucro.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfxMargemLucro.insets = new Insets(0, 0, 5, 0);
+		gbc_tfxMargemLucro.gridwidth = 3;
+		gbc_tfxMargemLucro.gridx = 1;
+		gbc_tfxMargemLucro.gridy = 7;
+		add(tfxMargemLucro, gbc_tfxMargemLucro);
 
 		JButton btnNewButton_2 = new JButton("Alterar");
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
@@ -220,7 +226,7 @@ public class MioloCadastroProduto extends JPanel {
 		JButton btnNewButton = new JButton("Gravar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gravaProdutoBanco();
+				adicionarProduto();
 			}
 		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
@@ -264,7 +270,48 @@ public class MioloCadastroProduto extends JPanel {
 		cbxUnidade.setModel(cbxModelUnidade);
 	}
 
-	protected void gravaProdutoBanco() {
+	/**
+	 * método para adicionar produto no Bd.
+	 */
+	private void adicionarProduto() {
 
+		String id = tfxId.getText().trim();
+		String nome = tfxNome.getText().trim();
+		String codigoBarra = tfxCodigoBarra.getText().trim();
+		Object categoria = cbxCategoria.getSelectedItem();
+		String descricao = tfxDescricao.getText().trim();
+		Object unidade = cbxUnidade.getSelectedItem();
+//		BigDecimal custo = tfxCusto.getText().trim();
+//		BigDecimal margemLucro = tfxMargemLucro.getText().trim();
+		
+		Produto produto = new Produto();
+		produto.setId(Integer.parseInt(id));
+		produto.setNome(nome);
+		produto.setCodigoBarra(codigoBarra);
+		produto.setCategoria((Categoria) categoria);
+		produto.setDescricao(descricao);
+		produto.setUnidade((Unidade) unidade);
+//		p.setCusto(custo);
+//		p.setMargemLucro(margemLucro);
+		
+		 limparCampos();
+
+		gravaProdutoBancoDados(produto);
+		// atualizaTabela();
+	}
+
+	protected void gravaProdutoBancoDados(Produto produto) {
+		try {
+			AtualizadorBancoDados atualizador = new AtualizadorBancoDados();
+			atualizador.gravaProdutoBanco(produto);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+
+	private void limparCampos() {
+		
 	}
 }

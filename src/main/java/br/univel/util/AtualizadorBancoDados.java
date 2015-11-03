@@ -121,4 +121,92 @@ public class AtualizadorBancoDados {
 		return lista;
 	}
 
+	/**
+	 * 
+	 * Método para gravar o produto no BD.
+	 * 
+	 */
+	public void gravaProdutoBanco(Produto produto) throws SQLException {
+		PreparedStatement ps = con
+				.prepareStatement("INSERT INTO PRODUTO (IDPRODUTO, NOME, CODIGOBARRA, CATEGORIA, DESCRICAO, UNIDADE) VALUES (?, ?, ?, ?, ?, ?)");
+
+		ps.setInt(1, produto.getId());
+		ps.setString(2, produto.getNome());
+		ps.setString(3, produto.getCodigoBarra());
+		ps.setObject(4, produto.getCategoria().toString());
+		ps.setString(5, produto.getDescricao());
+		ps.setObject(6, produto.getUnidade().toString());
+		// ps.setObject(7, produto.getCusto().toString());
+		// ps.setObject(8, produto.getMargemLucro().toString());
+
+		ps.executeUpdate();
+
+		ps.close();
+
+	}
+
+	/**
+	 * 
+	 * @param cliente
+	 * @throws SQLException
+	 *             Método para deletar o produto no Banco de Dados
+	 */
+	public void deletaProdutoBanco(Cliente cliente) throws SQLException {
+		// PreparedStatement ps = con
+		// .prepareStatement("delete from Cliente where idcliente = ?");
+		//
+		// ps.setInt(1, cliente.getId());
+		//
+		// ps.executeUpdate();
+		//
+		// ps.close();
+	}
+
+	/**
+	 * 
+	 * Método para alterar o produto no BD
+	 */
+	public void alteraProdutoBanco(Cliente c) throws SQLException {
+		// PreparedStatement ps = con
+		// .prepareStatement("update cliente set nome = ?,telefone = ?, endereco = ?, cidade = ?, email = ? where idcliente = ?");
+		//
+		// ps.setString(1, c.getNome());
+		// ps.setString(2, c.getTelefone());
+		// ps.setString(3, c.getEndereco());
+		// ps.setString(4, c.getCidade());
+		// ps.setString(5, c.getEmail());
+		// // ps.setObject(6, c.getEstado().toString());
+		// // ps.setObject(7, c.getGenero().toString());
+		// ps.setInt(6, c.getId());
+		//
+		// ps.executeUpdate();
+		//
+		// ps.close();
+
+	}
+
+	// /*
+	// *Cria uma lista de cliente para apresentar na tabela os dados do BD.
+	// */
+	public List<Produto> listaProduto() throws SQLException {
+		String sql = "SELECT * FROM PRODUTO";
+		List<Produto> lista = new ArrayList<Produto>();
+		PreparedStatement ps = con.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			Produto produto = new Produto();
+			produto.setId(rs.getInt("IDPRODUTO"));
+			produto.setNome(rs.getString("NOME"));
+			// produto.setEndereco(rs.getString("CODIGOBARRA"));
+			// produto.setTelefone(rs.getString("CATEGORIA"));
+			// produto.setCidade(rs.getString("DESCRICAO"));
+			// produto.setEmail(rs.getString("UNIDADE"));
+			// produto.setEstado(Estado.valueOf(rs.getString("CUSTO")));
+			// produto.setGenero(Genero.valueOf(rs.getString("MARGEMLUCRO")));
+
+			lista.add(produto);
+		}
+		return lista;
+	}
+
 }
