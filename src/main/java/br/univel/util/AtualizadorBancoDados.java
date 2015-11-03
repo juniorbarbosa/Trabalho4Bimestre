@@ -40,7 +40,7 @@ public class AtualizadorBancoDados {
 	 */
 	public void gravaClienteBanco(Cliente cliente) throws SQLException {
 		PreparedStatement ps = con
-				.prepareStatement("INSERT INTO CLIENTE (IDCLIENTE, NOME, TELEFONE, ENDERECO, CIDADE, EMAIL) VALUES (?, ?, ?, ?, ?, ?)");
+				.prepareStatement("INSERT INTO CLIENTE (IDCLIENTE, NOME, TELEFONE, ENDERECO, CIDADE, EMAIL, ESTADO, GENERO) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
 		ps.setInt(1, cliente.getId());
 		ps.setString(2, cliente.getNome());
@@ -48,8 +48,8 @@ public class AtualizadorBancoDados {
 		ps.setString(4, cliente.getEndereco());
 		ps.setString(5, cliente.getCidade());
 		ps.setString(6, cliente.getEmail());
-		// ps.setObject(7, (Estado) cliente.getEstado());
-		// ps.setObject(8, (Genero) cliente.getGenero());
+		ps.setObject(7, cliente.getEstado().toString());
+		ps.setObject(8, cliente.getGenero().toString());
 
 		ps.executeUpdate();
 
@@ -73,10 +73,11 @@ public class AtualizadorBancoDados {
 
 		ps.close();
 	}
-/**
- * 
- * Método para alterar o cliente no BD
- */
+
+	/**
+	 * 
+	 * Método para alterar o cliente no BD
+	 */
 	public void alteraClienteBanco(Cliente c) throws SQLException {
 		PreparedStatement ps = con
 				.prepareStatement("update cliente set nome = ?,telefone = ?, endereco = ?, cidade = ?, email = ? where idcliente = ?");
@@ -86,6 +87,8 @@ public class AtualizadorBancoDados {
 		ps.setString(3, c.getEndereco());
 		ps.setString(4, c.getCidade());
 		ps.setString(5, c.getEmail());
+		// ps.setObject(6, c.getEstado().toString());
+		// ps.setObject(7, c.getGenero().toString());
 		ps.setInt(6, c.getId());
 
 		ps.executeUpdate();
@@ -110,6 +113,9 @@ public class AtualizadorBancoDados {
 			cliente.setTelefone(rs.getString("TELEFONE"));
 			cliente.setCidade(rs.getString("CIDADE"));
 			cliente.setEmail(rs.getString("EMAIL"));
+			cliente.setEstado(Estado.valueOf(rs.getString("ESTADO")));
+			cliente.setGenero(Genero.valueOf(rs.getString("GENERO")));
+
 			lista.add(cliente);
 		}
 		return lista;

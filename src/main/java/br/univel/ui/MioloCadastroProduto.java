@@ -20,7 +20,6 @@ public class MioloCadastroProduto extends JPanel {
 	private JTextField tfxDescricao;
 	private JTextField tfxCusto;
 	private JTextField tfxMargemLucro;
-	private JTextField tfxCategoria;
 	private JTable table;
 
 	/**
@@ -80,16 +79,14 @@ public class MioloCadastroProduto extends JPanel {
 		gbc_lblNewLabel_2.gridy = 2;
 		add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
-		tfxCategoria = new JTextField();
-		tfxCategoria.setColumns(10);
-		GridBagConstraints gbc_tfxCategoria = new GridBagConstraints();
-		gbc_tfxCategoria.anchor = GridBagConstraints.NORTH;
-		gbc_tfxCategoria.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfxCategoria.insets = new Insets(0, 0, 5, 0);
-		gbc_tfxCategoria.gridwidth = 3;
-		gbc_tfxCategoria.gridx = 1;
-		gbc_tfxCategoria.gridy = 2;
-		add(tfxCategoria, gbc_tfxCategoria);
+		JComboBox comboBox_1 = new JComboBox();
+		GridBagConstraints gbc_comboBox_1 = new GridBagConstraints();
+		gbc_comboBox_1.gridwidth = 3;
+		gbc_comboBox_1.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBox_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBox_1.gridx = 1;
+		gbc_comboBox_1.gridy = 2;
+		add(comboBox_1, gbc_comboBox_1);
 		
 		JLabel lblNewLabel_3 = new JLabel("Descri\u00E7\u00E3o");
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
@@ -193,7 +190,6 @@ public class MioloCadastroProduto extends JPanel {
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridwidth = 4;
-		gbc_scrollPane.insets = new Insets(0, 0, 0, 5);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 8;

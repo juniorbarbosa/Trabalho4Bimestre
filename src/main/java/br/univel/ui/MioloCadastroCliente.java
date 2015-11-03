@@ -377,6 +377,8 @@ public class MioloCadastroCliente extends JPanel {
 		tfxTelefone.setText(cliente.getTelefone());
 		tfxCidade.setText(cliente.getCidade());
 		tfxEmail.setText(cliente.getEmail());
+		cbxEstado.setSelectedItem(cliente.getEstado());
+		cbxGenero.setSelectedItem(cliente.getGenero());
 	}
 
 	/**
