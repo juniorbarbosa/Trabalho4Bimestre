@@ -22,6 +22,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import br.univel.util.Categoria;
 import br.univel.util.Estado;
+import br.univel.util.Unidade;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -239,8 +240,9 @@ public class MioloCadastroProduto extends JPanel {
 
 		table = new JTable(model);
 		scrollPane.setViewportView(table);
-		
+
 		adicionarEnumComboBoxCategoria();
+		adicionarEnumComboBoxUnidade();
 
 	}
 
@@ -251,6 +253,15 @@ public class MioloCadastroProduto extends JPanel {
 		Categoria[] categorias = Categoria.values();
 		ComboBoxModel cbxModelCategoria = new DefaultComboBoxModel(categorias);
 		cbxCategoria.setModel(cbxModelCategoria);
+	}
+
+	/**
+	 * Método para adicionar valores da Enum Unidade no comboBox
+	 */
+	private void adicionarEnumComboBoxUnidade() {
+		Unidade[] unidade = Unidade.values();
+		ComboBoxModel cbxModelUnidade = new DefaultComboBoxModel(unidade);
+		cbxUnidade.setModel(cbxModelUnidade);
 	}
 
 	protected void gravaProdutoBanco() {
