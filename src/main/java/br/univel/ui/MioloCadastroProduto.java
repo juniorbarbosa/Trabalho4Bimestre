@@ -30,6 +30,8 @@ import br.univel.util.Unidade;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -266,6 +268,7 @@ public class MioloCadastroProduto extends JPanel {
 		adicionarEnumComboBoxUnidade();
 		limparCampos();
 		atualizaTabela();
+		adicionarValorCampos();
 	}
 
 	/**
@@ -369,6 +372,36 @@ public class MioloCadastroProduto extends JPanel {
 		tfxDescricao.setText("");
 		cbxCategoria.setSelectedItem(null);
 		cbxUnidade.setSelectedItem(null);
+	}
+
+	/**
+	 * adiciona o evento do mouse ao clicar 2 vezes e adicionado nos campos os
+	 * respectivos valores do campo selecionado
+	 */
+	private void adicionarValorCampos() {
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					carregaProduto(model.getLista().get(table.getSelectedRow()));
+				}
+			}
+		});
+	}
+
+	/**
+	 * 
+	 * carrega o contato selecionado
+	 */
+	private void carregaProduto(Produto produto) {
+		tfxId.setText(Integer.toString(produto.getId()));
+		tfxNome.setText(produto.getNome());
+		tfxCodigoBarra.setText(produto.getCodigoBarra());
+		tfxDescricao.setText(produto.getDescricao());
+		// tfxCusto.setText(produto.getCusto());
+		// tfxMargemLucro.setText(produto.getMargemLucro());
+		cbxCategoria.setSelectedItem(produto.getCategoria());
+		cbxUnidade.setSelectedItem(produto.getUnidade());
 	}
 
 	/**
