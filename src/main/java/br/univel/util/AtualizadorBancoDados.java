@@ -123,6 +123,27 @@ public class AtualizadorBancoDados {
 	}
 
 	/**
+	 * Método para apresentar o id e o nome do cliente no comboBox do usuário
+	 * @return
+	 * @throws SQLException
+	 */
+	
+	private List<Cliente> listaClienteTelaCadastroUsuario() throws SQLException {
+		String sql = "SELECT IDCLIENTE, NOME FROM CLIENTE";
+		List<Cliente> lista = new ArrayList<Cliente>();
+		PreparedStatement ps = con.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			Cliente cliente = new Cliente();
+			cliente.setId(rs.getInt("IDCLIENTE"));
+			cliente.setNome(rs.getString("NOME"));
+			lista.add(cliente);
+		}
+		return lista;
+
+	}
+
+	/**
 	 * 
 	 * Método para gravar o produto no BD.
 	 * 
