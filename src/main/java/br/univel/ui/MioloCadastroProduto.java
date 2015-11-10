@@ -211,6 +211,11 @@ public class MioloCadastroProduto extends JPanel {
 		add(tfxMargemLucro, gbc_tfxMargemLucro);
 
 		JButton btnNewButton_2 = new JButton("Alterar");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				alterarProduto();
+			}
+		});
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
 		gbc_btnNewButton_2.anchor = GridBagConstraints.NORTHEAST;
 		gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 5);
@@ -312,9 +317,10 @@ public class MioloCadastroProduto extends JPanel {
 		// p.setCusto(custo);
 		// p.setMargemLucro(margemLucro);
 
+		gravaProdutoBancoDados(produto);
+
 		limparCampos();
 
-		gravaProdutoBancoDados(produto);
 		atualizaTabela();
 	}
 
@@ -330,6 +336,35 @@ public class MioloCadastroProduto extends JPanel {
 		limparCampos();
 
 		excluiProdutoBancoDados(produto);
+
+		atualizaTabela();
+	}
+	/**
+	 * Método para alterar Produto do BD.
+	 */
+	protected void alterarProduto() {
+		String id = tfxId.getText().trim();
+		String nome = tfxNome.getText().trim();
+		String codigoBarra = tfxCodigoBarra.getText().trim();
+		Object categoria = cbxCategoria.getSelectedItem();
+		String descricao = tfxDescricao.getText().trim();
+		Object unidade = cbxUnidade.getSelectedItem();
+		// BigDecimal custo = tfxCusto.getText().trim();
+		// BigDecimal margemLucro = tfxMargemLucro.getText().trim();
+
+		Produto produto = new Produto();
+		produto.setId(Integer.parseInt(id));
+		produto.setNome(nome);
+		produto.setCodigoBarra(codigoBarra);
+		produto.setCategoria((Categoria) categoria);
+		produto.setDescricao(descricao);
+		produto.setUnidade((Unidade) unidade);
+		// p.setCusto(custo);
+		// p.setMargemLucro(margemLucro);
+
+		alteraProdutoBancoDados(produto);
+
+		limparCampos();
 
 		atualizaTabela();
 	}
@@ -360,6 +395,18 @@ public class MioloCadastroProduto extends JPanel {
 			e.printStackTrace();
 		}
 
+	}
+	
+	/**
+	 * Método para alterar Produto do BD.
+	 */
+	private void alteraProdutoBancoDados(Produto produto) {
+		try {
+			AtualizadorBancoDados atualiza = new AtualizadorBancoDados();
+			atualiza.alteraProdutoBanco(produto);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
