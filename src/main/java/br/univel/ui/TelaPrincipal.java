@@ -63,6 +63,11 @@ public class TelaPrincipal extends JFrame {
 		mnCadastro.add(mntmCliente);
 
 		JMenuItem mntmUsurio = new JMenuItem("Usu\u00E1rio");
+		mntmUsurio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				abrirTelaCadastroUsuario();
+			}
+		});
 		mnCadastro.add(mntmUsurio);
 
 		JMenuItem mntmProduto = new JMenuItem("Produto");
@@ -109,5 +114,20 @@ public class TelaPrincipal extends JFrame {
 		};
 		telaCadastroProduto.setCloseAction(action);
 		tabbedPane.addTab("Cadastro de Produto", telaCadastroProduto);
+	}
+
+	/**
+	 * Método para abrir a aba do cadastro de usuário
+	 */
+	private void abrirTelaCadastroUsuario() {
+		final TelaCadastroUsuario telaCadastroUsuario = new TelaCadastroUsuario();
+		ActionListener action = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tabbedPane.remove(telaCadastroUsuario);
+			}
+		};
+		telaCadastroUsuario.setCloseAction(action);
+		tabbedPane.addTab("Cadastro de Usuário", telaCadastroUsuario);
+
 	}
 }
