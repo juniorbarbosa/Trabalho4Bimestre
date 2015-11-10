@@ -81,16 +81,16 @@ public class AtualizadorBancoDados {
 	 */
 	public void alteraClienteBanco(Cliente c) throws SQLException {
 		PreparedStatement ps = con
-				.prepareStatement("update cliente set nome = ?,telefone = ?, endereco = ?, cidade = ?, email = ? where idcliente = ?");
+				.prepareStatement("update cliente set nome = ?,telefone = ?, endereco = ?, cidade = ?, email = ?, estado = ?, genero = ? where idcliente = ?");
 
 		ps.setString(1, c.getNome());
 		ps.setString(2, c.getTelefone());
 		ps.setString(3, c.getEndereco());
 		ps.setString(4, c.getCidade());
 		ps.setString(5, c.getEmail());
-		// ps.setObject(6, c.getEstado().toString());
-		// ps.setObject(7, c.getGenero().toString());
-		ps.setInt(6, c.getId());
+		ps.setObject(6, c.getEstado().toString());
+		ps.setObject(7, c.getGenero().toString());
+		ps.setInt(8, c.getId());
 
 		ps.executeUpdate();
 

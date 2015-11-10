@@ -266,9 +266,7 @@ public class MioloCadastroCliente extends JPanel {
 		table = new JTable(model);
 		scrollPane.setViewportView(table);
 
-		atualizaTabela();
 		initMioloCadastroCliente();
-		adicionarValorCampos();
 
 	}
 
@@ -276,6 +274,8 @@ public class MioloCadastroCliente extends JPanel {
 		adicionarEnumComboBoxEstado();
 		adicionarEnumComboBoxGenero();
 		limparCampos();
+		atualizaTabela();
+		adicionarValorCampos();
 	}
 
 	private void adicionarCliente() {
@@ -298,9 +298,10 @@ public class MioloCadastroCliente extends JPanel {
 		cliente.setEmail(email);
 		cliente.setGenero((Genero) genero);
 
+		gravaCLienteBandoDados(cliente);
+
 		limparCampos();
 
-		gravaCLienteBandoDados(cliente);
 		atualizaTabela();
 	}
 
@@ -309,9 +310,9 @@ public class MioloCadastroCliente extends JPanel {
 		Cliente cliente = new Cliente();
 		cliente.setId(Integer.parseInt(id));
 
-		limparCampos();
-
 		excluiClienteBancoDados(cliente);
+
+		limparCampos();
 
 		atualizaTabela();
 	}
@@ -322,7 +323,9 @@ public class MioloCadastroCliente extends JPanel {
 		String endereco = tfxEndereco.getText().trim();
 		String telefone = tfxTelefone.getText().trim();
 		String cidade = tfxCidade.getText().trim();
+		Object estado = cbxEstado.getSelectedItem();
 		String email = tfxEmail.getText().trim();
+		Object genero = cbxGenero.getSelectedItem();
 
 		Cliente cliente = new Cliente();
 		cliente.setId(Integer.parseInt(id));
@@ -330,11 +333,13 @@ public class MioloCadastroCliente extends JPanel {
 		cliente.setEndereco(endereco);
 		cliente.setTelefone(telefone);
 		cliente.setCidade(cidade);
+		cliente.setEstado((Estado) estado);
 		cliente.setEmail(email);
-
-		limparCampos();
+		cliente.setGenero((Genero) genero);
 
 		alteraClienteBancoDados(cliente);
+
+		limparCampos();
 
 		atualizaTabela();
 
