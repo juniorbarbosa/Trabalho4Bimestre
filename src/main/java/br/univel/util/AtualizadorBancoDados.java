@@ -1,5 +1,6 @@
 package br.univel.util;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -128,7 +129,7 @@ public class AtualizadorBancoDados {
 	 */
 	public void gravaProdutoBanco(Produto produto) throws SQLException {
 		PreparedStatement ps = con
-				.prepareStatement("INSERT INTO PRODUTO (IDPRODUTO, NOME, CODIGOBARRA, CATEGORIA, DESCRICAO, UNIDADE) VALUES (?, ?, ?, ?, ?, ?)");
+				.prepareStatement("INSERT INTO PRODUTO (IDPRODUTO, NOME, CODIGOBARRA, CATEGORIA, DESCRICAO, UNIDADE, CUSTO) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
 		ps.setInt(1, produto.getId());
 		ps.setString(2, produto.getNome());
@@ -136,6 +137,7 @@ public class AtualizadorBancoDados {
 		ps.setObject(4, produto.getCategoria().toString());
 		ps.setString(5, produto.getDescricao());
 		ps.setObject(6, produto.getUnidade().toString());
+		// ps.setBigDecimal(7, produto.getCusto());
 		// ps.setObject(7, produto.getCusto().toString());
 		// ps.setObject(8, produto.getMargemLucro().toString());
 
@@ -152,35 +154,33 @@ public class AtualizadorBancoDados {
 	 *             Método para deletar o produto no Banco de Dados
 	 */
 	public void deletaProdutoBanco(Produto produto) throws SQLException {
-		 PreparedStatement ps = con.prepareStatement("delete from Produto where idproduto = ?");
-		
-		 ps.setInt(1, produto.getId());
-		
-		 ps.executeUpdate();
-		
-		 ps.close();
+		PreparedStatement ps = con
+				.prepareStatement("delete from Produto where idproduto = ?");
+
+		ps.setInt(1, produto.getId());
+
+		ps.executeUpdate();
+
+		ps.close();
 	}
 
 	/**
 	 * 
 	 * Método para alterar o produto no BD
 	 */
-	public void alteraProdutoBanco(Cliente c) throws SQLException {
-		// PreparedStatement ps = con
-		// .prepareStatement("update cliente set nome = ?,telefone = ?, endereco = ?, cidade = ?, email = ? where idcliente = ?");
-		//
-		// ps.setString(1, c.getNome());
-		// ps.setString(2, c.getTelefone());
-		// ps.setString(3, c.getEndereco());
-		// ps.setString(4, c.getCidade());
-		// ps.setString(5, c.getEmail());
-		// // ps.setObject(6, c.getEstado().toString());
-		// // ps.setObject(7, c.getGenero().toString());
-		// ps.setInt(6, c.getId());
-		//
-		// ps.executeUpdate();
-		//
-		// ps.close();
+	public void alteraProdutoBanco(Produto produto) throws SQLException {
+		PreparedStatement ps = con
+				.prepareStatement("update produto set nome = ?,codigobarra = ?, categoria = ?, descricao = ?, unidade = ? where idproduto = ?");
+
+		ps.setString(1, produto.getNome());
+		ps.setString(2, produto.getCodigoBarra());
+		ps.setString(3, produto.getCategoria().toString());
+		ps.setString(4, produto.getDescricao());
+		ps.setString(5, produto.getUnidade().toString());
+		ps.setInt(6, produto.getId());
+		ps.executeUpdate();
+
+		ps.close();
 
 	}
 
