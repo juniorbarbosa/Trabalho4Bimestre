@@ -304,8 +304,8 @@ public class MioloCadastroProduto extends JPanel {
 		Object categoria = cbxCategoria.getSelectedItem();
 		String descricao = tfxDescricao.getText().trim();
 		Object unidade = cbxUnidade.getSelectedItem();
-		// BigDecimal custo = tfxCusto.getText().trim();
-		// BigDecimal margemLucro = tfxMargemLucro.getText().trim();
+		String custoString = tfxCusto.getText().trim();
+		String margemLucro = tfxMargemLucro.getText().trim();
 
 		Produto produto = new Produto();
 		produto.setId(Integer.parseInt(id));
@@ -314,8 +314,10 @@ public class MioloCadastroProduto extends JPanel {
 		produto.setCategoria((Categoria) categoria);
 		produto.setDescricao(descricao);
 		produto.setUnidade((Unidade) unidade);
-		// p.setCusto(custo);
-		// p.setMargemLucro(margemLucro);
+		BigDecimal custoBigDecimal = new BigDecimal(custoString);
+		produto.setCusto(custoBigDecimal);
+		BigDecimal margemLucroBigDecimal = new BigDecimal(margemLucro);
+		produto.setMargemLucro(margemLucroBigDecimal);
 
 		gravaProdutoBancoDados(produto);
 
@@ -339,6 +341,7 @@ public class MioloCadastroProduto extends JPanel {
 
 		atualizaTabela();
 	}
+
 	/**
 	 * Método para alterar Produto do BD.
 	 */
@@ -349,8 +352,8 @@ public class MioloCadastroProduto extends JPanel {
 		Object categoria = cbxCategoria.getSelectedItem();
 		String descricao = tfxDescricao.getText().trim();
 		Object unidade = cbxUnidade.getSelectedItem();
-		// BigDecimal custo = tfxCusto.getText().trim();
-		// BigDecimal margemLucro = tfxMargemLucro.getText().trim();
+		String custoString = tfxCusto.getText().trim();
+		String margemLucro = tfxMargemLucro.getText().trim();
 
 		Produto produto = new Produto();
 		produto.setId(Integer.parseInt(id));
@@ -359,8 +362,10 @@ public class MioloCadastroProduto extends JPanel {
 		produto.setCategoria((Categoria) categoria);
 		produto.setDescricao(descricao);
 		produto.setUnidade((Unidade) unidade);
-		// p.setCusto(custo);
-		// p.setMargemLucro(margemLucro);
+		BigDecimal custoBigDecimal = new BigDecimal(custoString);
+		produto.setCusto(custoBigDecimal);
+		BigDecimal margemLucroBigDecimal = new BigDecimal(margemLucro);
+		produto.setMargemLucro(margemLucroBigDecimal);
 
 		alteraProdutoBancoDados(produto);
 
@@ -396,7 +401,7 @@ public class MioloCadastroProduto extends JPanel {
 		}
 
 	}
-	
+
 	/**
 	 * Método para alterar Produto do BD.
 	 */
@@ -417,6 +422,8 @@ public class MioloCadastroProduto extends JPanel {
 		tfxNome.setText("");
 		tfxCodigoBarra.setText("");
 		tfxDescricao.setText("");
+		tfxCusto.setText("");
+		tfxMargemLucro.setText("");
 		cbxCategoria.setSelectedItem(null);
 		cbxUnidade.setSelectedItem(null);
 	}
@@ -445,8 +452,8 @@ public class MioloCadastroProduto extends JPanel {
 		tfxNome.setText(produto.getNome());
 		tfxCodigoBarra.setText(produto.getCodigoBarra());
 		tfxDescricao.setText(produto.getDescricao());
-		// tfxCusto.setText(produto.getCusto());
-		// tfxMargemLucro.setText(produto.getMargemLucro());
+		tfxCusto.setText(produto.getCusto().toString());
+		tfxMargemLucro.setText(produto.getMargemLucro().toString());
 		cbxCategoria.setSelectedItem(produto.getCategoria());
 		cbxUnidade.setSelectedItem(produto.getUnidade());
 	}

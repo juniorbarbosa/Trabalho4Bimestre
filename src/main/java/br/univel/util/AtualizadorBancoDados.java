@@ -124,11 +124,12 @@ public class AtualizadorBancoDados {
 
 	/**
 	 * Método para apresentar o id e o nome do cliente no comboBox do usuário
+	 * 
 	 * @return
 	 * @throws SQLException
 	 */
-	
-	private List<Cliente> listaClienteTelaCadastroUsuario() throws SQLException {
+
+	public List<Cliente> listaClienteTelaCadastroUsuario() throws SQLException {
 		String sql = "SELECT IDCLIENTE, NOME FROM CLIENTE";
 		List<Cliente> lista = new ArrayList<Cliente>();
 		PreparedStatement ps = con.prepareStatement(sql);
@@ -150,7 +151,7 @@ public class AtualizadorBancoDados {
 	 */
 	public void gravaProdutoBanco(Produto produto) throws SQLException {
 		PreparedStatement ps = con
-				.prepareStatement("INSERT INTO PRODUTO (IDPRODUTO, NOME, CODIGOBARRA, CATEGORIA, DESCRICAO, UNIDADE, CUSTO) VALUES (?, ?, ?, ?, ?, ?, ?)");
+				.prepareStatement("INSERT INTO PRODUTO (IDPRODUTO, NOME, CODIGOBARRA, CATEGORIA, DESCRICAO, UNIDADE, CUSTO, MARGEMLUCRO) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
 		ps.setInt(1, produto.getId());
 		ps.setString(2, produto.getNome());
@@ -158,9 +159,8 @@ public class AtualizadorBancoDados {
 		ps.setObject(4, produto.getCategoria().toString());
 		ps.setString(5, produto.getDescricao());
 		ps.setObject(6, produto.getUnidade().toString());
-		// ps.setBigDecimal(7, produto.getCusto());
-		// ps.setObject(7, produto.getCusto().toString());
-		// ps.setObject(8, produto.getMargemLucro().toString());
+		ps.setBigDecimal(7, produto.getCusto());
+		ps.setBigDecimal(8, produto.getMargemLucro());
 
 		ps.executeUpdate();
 
@@ -191,14 +191,16 @@ public class AtualizadorBancoDados {
 	 */
 	public void alteraProdutoBanco(Produto produto) throws SQLException {
 		PreparedStatement ps = con
-				.prepareStatement("update produto set nome = ?,codigobarra = ?, categoria = ?, descricao = ?, unidade = ? where idproduto = ?");
+				.prepareStatement("update produto set nome = ?,codigobarra = ?, categoria = ?, descricao = ?, unidade = ?, custo = ?, margemlucro =? where idproduto = ?");
 
 		ps.setString(1, produto.getNome());
 		ps.setString(2, produto.getCodigoBarra());
 		ps.setString(3, produto.getCategoria().toString());
 		ps.setString(4, produto.getDescricao());
 		ps.setString(5, produto.getUnidade().toString());
-		ps.setInt(6, produto.getId());
+		ps.setBigDecimal(6, produto.getCusto());
+		ps.setBigDecimal(7, produto.getMargemLucro());
+		ps.setInt(8, produto.getId());
 		ps.executeUpdate();
 
 		ps.close();
@@ -221,8 +223,8 @@ public class AtualizadorBancoDados {
 			produto.setCategoria(Categoria.valueOf(rs.getString("CATEGORIA")));
 			produto.setDescricao(rs.getString("DESCRICAO"));
 			produto.setUnidade(Unidade.valueOf(rs.getString("UNIDADE")));
-			// ps.setObject(7, produto.getCusto().toString());
-			// ps.setObject(8, produto.getMargemLucro().toString());
+			produto.setCusto(rs.getBigDecimal("CUSTO"));
+			produto.setMargemLucro(rs.getBigDecimal("MARGEMLUCRO"));
 
 			lista.add(produto);
 		}
