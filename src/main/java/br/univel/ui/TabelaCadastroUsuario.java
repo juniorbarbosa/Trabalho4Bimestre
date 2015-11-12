@@ -50,4 +50,17 @@ public class TabelaCadastroUsuario extends AbstractTableModel {
 		return "Erro";
 	}
 
+	@Override
+	public String getColumnName(int column) {
+		switch (column) {
+		case 0:
+			return "Id Cliente";
+		case 1:
+			return "Id Usuário";
+		case 2:
+			return "Senha";
+		}
+		return "Erro";
+	}
+
 }
