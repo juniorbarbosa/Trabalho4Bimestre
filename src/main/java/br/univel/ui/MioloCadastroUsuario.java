@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -147,6 +148,12 @@ public class MioloCadastroUsuario extends JPanel {
 		table = new JTable(model);
 		scrollPane.setViewportView(table);
 
+		initMioloCadastroUsuario();
+
+	}
+
+	private void initMioloCadastroUsuario() {
+		atualizaTabela();
 	}
 
 	private void AdicionarValorCbxIdCliente() {
@@ -175,6 +182,8 @@ public class MioloCadastroUsuario extends JPanel {
 
 		gravaUsuarioBancoDados(usuario);
 
+		atualizaTabela();
+
 	}
 
 	private void gravaUsuarioBancoDados(Usuario usuario) {
@@ -185,6 +194,15 @@ public class MioloCadastroUsuario extends JPanel {
 			e.printStackTrace();
 		}
 
+	}
+
+	private void atualizaTabela() {
+		try {
+			AtualizadorBancoDados tabela = new AtualizadorBancoDados();
+			model.setLista((ArrayList<Usuario>) tabela.listaUsuario());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

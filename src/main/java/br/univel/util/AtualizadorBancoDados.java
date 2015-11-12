@@ -249,5 +249,24 @@ public class AtualizadorBancoDados {
 		ps.close();
 
 	}
+	
+	// /*
+		// *Cria uma lista de usuarios para apresentar na tabela os dados do BD.
+		// */
+		public List<Usuario> listaUsuario() throws SQLException {
+			String sql = "SELECT * FROM USUARIO";
+			List<Usuario> lista = new ArrayList<Usuario>();
+			PreparedStatement ps = con.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Usuario usuario = new Usuario();
+				usuario.setId(rs.getInt("IDCLIENTE"));
+				usuario.setIdUsuario(rs.getInt("IDUSUARIO"));
+				usuario.setSenha(rs.getString("SENHA"));
+				
+				lista.add(usuario);
+			}
+			return lista;
+		}
 
 }
