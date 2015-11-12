@@ -154,6 +154,7 @@ public class MioloCadastroUsuario extends JPanel {
 
 	private void initMioloCadastroUsuario() {
 		atualizaTabela();
+		limparCampos();
 	}
 
 	private void AdicionarValorCbxIdCliente() {
@@ -184,6 +185,8 @@ public class MioloCadastroUsuario extends JPanel {
 
 		atualizaTabela();
 
+		limparCampos();
+
 	}
 
 	private void gravaUsuarioBancoDados(Usuario usuario) {
@@ -203,6 +206,12 @@ public class MioloCadastroUsuario extends JPanel {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void limparCampos() {
+		txtIdUsuario.setText("");
+		txtSenha.setText("");
+		cbxIdCliente.setSelectedItem(null);
 	}
 
 }
