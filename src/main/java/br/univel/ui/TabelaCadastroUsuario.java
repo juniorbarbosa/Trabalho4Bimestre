@@ -1,10 +1,7 @@
 package br.univel.ui;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.table.AbstractTableModel;
-
 import br.univel.util.Usuario;
 
 /**
@@ -26,7 +23,8 @@ public class TabelaCadastroUsuario extends AbstractTableModel {
 	}
 
 	public void setLista(ArrayList<Usuario> lista) {
-		this.lista = lista;
+		this.lista = (ArrayList<Usuario>) lista;
+		this.fireTableDataChanged();
 	}
 
 	public int getRowCount() {

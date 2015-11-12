@@ -100,6 +100,7 @@ public class TelaPrincipal extends JFrame {
 		};
 		telaCadastroCliente.setCloseAction(action);
 		tabbedPane.addTab("Cadastro de Cliente", telaCadastroCliente);
+		mostraAbaSelecionada();
 	}
 
 	/**
@@ -114,6 +115,7 @@ public class TelaPrincipal extends JFrame {
 		};
 		telaCadastroProduto.setCloseAction(action);
 		tabbedPane.addTab("Cadastro de Produto", telaCadastroProduto);
+		mostraAbaSelecionada();
 	}
 
 	/**
@@ -128,6 +130,14 @@ public class TelaPrincipal extends JFrame {
 		};
 		telaCadastroUsuario.setCloseAction(action);
 		tabbedPane.addTab("Cadastro de Usuário", telaCadastroUsuario);
+		mostraAbaSelecionada();
 
+	}
+
+	/**
+	 * método para abrir direto a última tela selecionada.
+	 */
+	private void mostraAbaSelecionada() {
+		tabbedPane.setSelectedIndex(tabbedPane.getTabCount() - 1);
 	}
 }

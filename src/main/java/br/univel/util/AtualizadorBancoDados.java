@@ -230,5 +230,24 @@ public class AtualizadorBancoDados {
 		}
 		return lista;
 	}
+	
+	/**
+	 * 
+	 * @param usuario
+	 * @throws SQLException
+	 */
+	public void gravaUsuarioBanco(Usuario usuario) throws SQLException {
+		PreparedStatement ps = con
+				.prepareStatement("insert into usuario (idcliente, idusuario, senha) values (?, ?, ?)");
+
+		ps.setInt(1, usuario.getId());
+		ps.setInt(2, usuario.getIdUsuario());
+		ps.setString(3, usuario.getSenha());
+
+		ps.executeUpdate();
+
+		ps.close();
+
+	}
 
 }
