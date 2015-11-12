@@ -30,15 +30,24 @@ public class TabelaCadastroUsuario extends AbstractTableModel {
 	}
 
 	public int getRowCount() {
-		return 0;
+		return lista.size();
 	}
 
 	public int getColumnCount() {
-		return 0;
+		return 3;
 	}
 
-	public Object getValueAt(int rowIndex, int columnIndex) {
-		return null;
+	public Object getValueAt(int row, int column) {
+		Usuario usuario = lista.get(row);
+		switch (column) {
+		case 0:
+			return usuario.getId();
+		case 1:
+			return usuario.getIdUsuario();
+		case 2:
+			return usuario.getSenha();
+		}
+		return "Erro";
 	}
 
 }
