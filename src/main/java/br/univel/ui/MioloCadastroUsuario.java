@@ -110,6 +110,11 @@ public class MioloCadastroUsuario extends JPanel {
 		add(txtSenha, gbc_txtSenha);
 
 		JButton btnAlterar = new JButton("Alterar");
+		btnAlterar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				alteraUsuario();
+			}
+		});
 		GridBagConstraints gbc_btnAlterar = new GridBagConstraints();
 		gbc_btnAlterar.anchor = GridBagConstraints.NORTHEAST;
 		gbc_btnAlterar.insets = new Insets(0, 0, 5, 5);
@@ -226,6 +231,32 @@ public class MioloCadastroUsuario extends JPanel {
 			e.printStackTrace();
 		}
 
+	}
+
+	protected void alteraUsuario() {
+		String idUsuario = txtIdUsuario.getText().trim();
+		String senha = txtSenha.getText().trim();
+
+		Usuario usuario = new Usuario();
+		usuario.setIdUsuario(Integer.parseInt(idUsuario));
+		usuario.setSenha(senha);
+
+		alteraUsuarioBancoDados(usuario);
+
+		atualizaTabela();
+
+		limparCampos();
+
+	}
+
+	private void alteraUsuarioBancoDados(Usuario usuario) {
+		AtualizadorBancoDados atualiza;
+		try {
+			atualiza = new AtualizadorBancoDados();
+			atualiza.alteraUsuarioBanco(usuario);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void atualizaTabela() {
