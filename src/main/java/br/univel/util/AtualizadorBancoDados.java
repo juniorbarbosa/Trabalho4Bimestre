@@ -230,7 +230,7 @@ public class AtualizadorBancoDados {
 		}
 		return lista;
 	}
-	
+
 	/**
 	 * 
 	 * @param usuario
@@ -249,24 +249,57 @@ public class AtualizadorBancoDados {
 		ps.close();
 
 	}
-	
+
+	/**
+	 * Método para deletar um usuário no BD.
+	 * 
+	 */
+
+	public void deletaUsuarioBanco(Usuario usuario) throws SQLException {
+		PreparedStatement ps = con
+				.prepareStatement("delete from usuario where idusuario = ?");
+
+		ps.setInt(1, usuario.getIdUsuario());
+
+		ps.executeUpdate();
+
+		ps.close();
+	}
+
+	/**
+	 * 
+	 * Método para alterar o usuario no BD
+	 */
+	public void alteraUsuarioBanco(Usuario usuario) throws SQLException {
+		PreparedStatement ps = con
+				.prepareStatement("update usuario set senha = ? where idusuario = ?");
+
+		ps.setString(1, usuario.getSenha());
+		ps.setInt(2, usuario.getIdUsuario());
+
+		ps.executeUpdate();
+
+		ps.close();
+
+	}
+
 	// /*
-		// *Cria uma lista de usuarios para apresentar na tabela os dados do BD.
-		// */
-		public List<Usuario> listaUsuario() throws SQLException {
-			String sql = "SELECT * FROM USUARIO";
-			List<Usuario> lista = new ArrayList<Usuario>();
-			PreparedStatement ps = con.prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				Usuario usuario = new Usuario();
-				usuario.setId(rs.getInt("IDCLIENTE"));
-				usuario.setIdUsuario(rs.getInt("IDUSUARIO"));
-				usuario.setSenha(rs.getString("SENHA"));
-				
-				lista.add(usuario);
-			}
-			return lista;
+	// *Cria uma lista de usuarios para apresentar na tabela os dados do BD.
+	// */
+	public List<Usuario> listaUsuario() throws SQLException {
+		String sql = "SELECT * FROM USUARIO";
+		List<Usuario> lista = new ArrayList<Usuario>();
+		PreparedStatement ps = con.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			Usuario usuario = new Usuario();
+			usuario.setId(rs.getInt("IDCLIENTE"));
+			usuario.setIdUsuario(rs.getInt("IDUSUARIO"));
+			usuario.setSenha(rs.getString("SENHA"));
+
+			lista.add(usuario);
 		}
+		return lista;
+	}
 
 }
