@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -117,6 +118,11 @@ public class MioloCadastroUsuario extends JPanel {
 		add(btnAlterar, gbc_btnAlterar);
 
 		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				exluiUsuario();
+			}
+		});
 		GridBagConstraints gbc_btnExcluir = new GridBagConstraints();
 		gbc_btnExcluir.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnExcluir.insets = new Insets(0, 0, 5, 5);
@@ -186,13 +192,36 @@ public class MioloCadastroUsuario extends JPanel {
 		atualizaTabela();
 
 		limparCampos();
-
 	}
 
 	private void gravaUsuarioBancoDados(Usuario usuario) {
 		try {
 			AtualizadorBancoDados atualiza = new AtualizadorBancoDados();
 			atualiza.gravaUsuarioBanco(usuario);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private void exluiUsuario() {
+		String idUsuario = txtIdUsuario.getText().trim();
+
+		Usuario usuario = new Usuario();
+		usuario.setIdUsuario(Integer.parseInt(idUsuario));
+
+		excluiUsuarioBancoDados(usuario);
+
+		atualizaTabela();
+
+		limparCampos();
+
+	}
+
+	private void excluiUsuarioBancoDados(Usuario usuario) {
+		try {
+			AtualizadorBancoDados atualiza = new AtualizadorBancoDados();
+			atualiza.deletaUsuarioBanco(usuario);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
