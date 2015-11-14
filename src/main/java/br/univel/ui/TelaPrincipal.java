@@ -10,6 +10,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -17,6 +18,7 @@ public class TelaPrincipal extends JFrame {
 
 	private JPanel contentPane;
 	private JTabbedPane tabbedPane;
+	private BlockPanel glass;
 
 	/**
 	 * Launch the application.
@@ -39,6 +41,9 @@ public class TelaPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaPrincipal() {
+
+		blockParaLogin();
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 
@@ -86,6 +91,45 @@ public class TelaPrincipal extends JFrame {
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 
+	}
+
+	protected void block() {
+		setGlassPane(glass);
+		glass.setVisible(true);
+
+		new Thread(new Runnable() {
+
+			public void run() {
+				for (int i = 0; i < 5; i++) {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				glass.setVisible(false);
+
+			}
+		}).start();
+
+	}
+
+	private void blockParaLogin() {
+		Runnable acaoOk = new Runnable() {
+			public void run() {
+				glass.setVisible(false);
+				glass = new BlockPanel();
+			}
+		};
+
+		// ---- USAR O PAINEL DE LOGIN.
+		PainelLogin painelLogin = new PainelLogin(acaoOk);
+		glass = new BlockPanel(painelLogin);
+		// -----------------------------------
+
+		setGlassPane(glass);
+
+		glass.setVisible(true);
 	}
 
 	/**
