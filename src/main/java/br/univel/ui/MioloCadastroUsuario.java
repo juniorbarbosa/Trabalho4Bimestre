@@ -26,6 +26,8 @@ import br.univel.util.Usuario;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * 
@@ -166,6 +168,7 @@ public class MioloCadastroUsuario extends JPanel {
 	private void initMioloCadastroUsuario() {
 		atualizaTabela();
 		limparCampos();
+		adicionarValorCampos();
 	}
 
 	private void AdicionarValorCbxIdCliente() {
@@ -272,6 +275,31 @@ public class MioloCadastroUsuario extends JPanel {
 		txtIdUsuario.setText("");
 		txtSenha.setText("");
 		cbxIdCliente.setSelectedItem(null);
+	}
+
+	/**
+	 * adiciona o evento do mouse ao clicar 2 vezes e adicionado nos campos os
+	 * respectivos valores do campo selecionado
+	 */
+	private void adicionarValorCampos() {
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					carregaUsuario(model.getLista().get(table.getSelectedRow()));
+				}
+			}
+		});
+	}
+
+	/**
+	 * 
+	 * carrega o usuario selecionado
+	 */
+	private void carregaUsuario(Usuario usuario) {
+		cbxIdCliente.setSelectedItem(usuario.getId());
+		txtIdUsuario.setText(Integer.toString(usuario.getIdUsuario()));
+		txtSenha.setText(usuario.getSenha());
 	}
 
 }

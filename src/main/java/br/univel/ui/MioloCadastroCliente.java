@@ -365,7 +365,7 @@ public class MioloCadastroCliente extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
-					carregaContato(model.getLista().get(table.getSelectedRow()));
+					carregaCliente(model.getLista().get(table.getSelectedRow()));
 				}
 			}
 		});
@@ -375,7 +375,7 @@ public class MioloCadastroCliente extends JPanel {
 	 * 
 	 * carrega o contato selecionado
 	 */
-	private void carregaContato(Cliente cliente) {
+	private void carregaCliente(Cliente cliente) {
 		tfxId.setText(Integer.toString(cliente.getId()));
 		tfxNome.setText(cliente.getNome());
 		tfxEndereco.setText(cliente.getEndereco());
