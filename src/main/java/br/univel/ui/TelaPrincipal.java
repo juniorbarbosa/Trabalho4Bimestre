@@ -93,27 +93,6 @@ public class TelaPrincipal extends JFrame {
 
 	}
 
-	protected void block() {
-		setGlassPane(glass);
-		glass.setVisible(true);
-
-		new Thread(new Runnable() {
-
-			public void run() {
-				for (int i = 0; i < 5; i++) {
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-				glass.setVisible(false);
-
-			}
-		}).start();
-
-	}
-
 	private void blockParaLogin() {
 		Runnable acaoOk = new Runnable() {
 			public void run() {

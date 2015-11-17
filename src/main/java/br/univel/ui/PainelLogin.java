@@ -1,6 +1,5 @@
 package br.univel.ui;
 
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -14,7 +13,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import javax.swing.JButton;
+import br.univel.util.AtualizadorBancoDados;
 
 public class PainelLogin extends JPanel {
 
@@ -74,56 +75,55 @@ public class PainelLogin extends JPanel {
 		gbc_btnEntrar.gridy = 2;
 		add(btnEntrar, gbc_btnEntrar);
 
-		// final
 		configuraListeners();
 	}
 
+	/**
+	 * método de ação do enter trocar de foco no usuario e acessar o sistema na
+	 * senha ao apertar a tecla enter
+	 */
 	private void configuraListeners() {
-
 		textField.addKeyListener(new KeyAdapter() {
-
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					textField.transferFocus();
 				}
 			}
-
 		});
-
 		passwordField.addKeyListener(new KeyAdapter() {
-
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					logar();
+					logarBD();
 				}
 			}
-
 		});
-
 	}
 
 	public PainelLogin(Runnable acaoOk) {
 		this();
-
 		this.acaoOk = acaoOk;
-
 		btnEntrar.addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
-				logar();
+				logarBD();
 			}
 		});
 	}
 
-	private void logar() {
-		if (textField.getText().trim().equals("1")
-				&& new String(passwordField.getPassword()).equals("1")) {
-			acaoOk.run();
-		} else {
-			JOptionPane.showMessageDialog(PainelLogin.this,
-					"Usuário e/ou senha inválidos!");
+	/**
+	 * método para pegar as informações do BD para acesso ao sistema.
+	 */
+	private void logarBD() {
+		try {
+			String valorLogin = textField.getText().trim();
+			String senha = new String(passwordField.getPassword());
+
+			AtualizadorBancoDados login = new AtualizadorBancoDados();
+
+			login.validaLogin(Integer.parseInt(valorLogin), senha, acaoOk);
+		} catch (SQLException e) {
+			e.printStackTrace(System.err);
 		}
 	}
 

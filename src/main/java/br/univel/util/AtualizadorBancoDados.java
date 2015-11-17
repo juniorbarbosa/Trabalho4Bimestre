@@ -1,6 +1,5 @@
 package br.univel.util;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  * 
@@ -300,6 +300,32 @@ public class AtualizadorBancoDados {
 			lista.add(usuario);
 		}
 		return lista;
+	}
+
+	/**
+	 * Método para validar um usuário no PainelLogin para acessar o sistema.
+	 */
+	public void validaLogin(Integer textField, String passwordField,
+			Runnable acaoOk) {
+		try {
+			String sql = "select * from usuario where idusuario = ? and senha = ?";
+			PreparedStatement stm = con.prepareStatement(sql);
+			stm.setInt(1, textField);
+			stm.setString(2, passwordField);
+
+			ResultSet rs = stm.executeQuery();
+
+			if (rs.next()) {
+				acaoOk.run();
+			} else {
+				JOptionPane.showMessageDialog(null,
+						"Usuário e/ou senha inválidos!");
+			}
+
+		} catch (SQLException ex) {
+			ex.printStackTrace(System.err);
+		}
+
 	}
 
 }
