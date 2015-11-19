@@ -54,6 +54,11 @@ public class TelaPrincipal extends JFrame {
 		menuBar.add(mnVenda);
 
 		JMenuItem mntmEfetuarVenda = new JMenuItem("Efetuar Venda");
+		mntmEfetuarVenda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				abrirTelaCadastroVenda();
+			}
+		});
 		mnVenda.add(mntmEfetuarVenda);
 
 		JMenu mnCadastro = new JMenu("Cadastros");
@@ -155,6 +160,21 @@ public class TelaPrincipal extends JFrame {
 		tabbedPane.addTab("Cadastro de Usuário", telaCadastroUsuario);
 		mostraAbaSelecionada();
 
+	}
+	
+	/**
+	 * Método para abrir a aba de cadastro de venda
+	 */
+	private void abrirTelaCadastroVenda() {
+		final TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda();
+		ActionListener action = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tabbedPane.remove(telaCadastroVenda);
+			}
+		};
+		telaCadastroVenda.setCloseAction(action);
+		tabbedPane.addTab("Efetuar venda", telaCadastroVenda);
+		mostraAbaSelecionada();
 	}
 
 	/**
