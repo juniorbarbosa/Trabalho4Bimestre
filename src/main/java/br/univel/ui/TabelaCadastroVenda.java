@@ -26,11 +26,11 @@ public class TabelaCadastroVenda extends AbstractTableModel {
 	public Object getValueAt(int row, int column) {
 		ProdutoVenda produto = lista.get(row);
 		switch (column) {
-		case 1:
+		case 0:
 			produto.getNomeProduto();
-		case 2:
+		case 1:
 			produto.getQuantidade();
-		case 3:
+		case 2:
 			produto.getValorTotal();
 		}
 		return "Erro";
@@ -39,11 +39,11 @@ public class TabelaCadastroVenda extends AbstractTableModel {
 	@Override
 	public String getColumnName(int column) {
 		switch (column) {
-		case 1:
+		case 0:
 			return "Nome Produto";
-		case 2:
+		case 1:
 			return "Quantidade";
-		case 3:
+		case 2:
 			return "Valor Total";
 		}
 

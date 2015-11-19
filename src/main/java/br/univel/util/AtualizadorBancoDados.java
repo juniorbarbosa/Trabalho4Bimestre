@@ -144,6 +144,21 @@ public class AtualizadorBancoDados {
 
 	}
 
+	public List<Produto> listaProdutoComboBox() throws SQLException {
+		String sql = "SELECT IDPRODUTO, NOME FROM PRODUTO";
+		List<Produto> lista = new ArrayList<Produto>();
+		PreparedStatement ps = con.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			Produto produto = new Produto();
+			produto.setId(rs.getInt("IDPRODUTO"));
+			produto.setNome(rs.getString("NOME"));
+			lista.add(produto);
+		}
+		return lista;
+
+	}
+
 	/**
 	 * 
 	 * Método para gravar o produto no BD.

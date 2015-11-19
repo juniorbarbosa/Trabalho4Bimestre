@@ -9,10 +9,19 @@ import java.math.BigDecimal;
  */
 public class ProdutoVenda {
 
+	private String nomeProduto;
 	private int quantidade;
 	private BigDecimal valorTotal;
 	private BigDecimal valorPago;
 	private BigDecimal troco;
+
+	public String getNomeProduto() {
+		return nomeProduto;
+	}
+
+	public void setNomeProduto(String nomeProduto) {
+		this.nomeProduto = nomeProduto;
+	}
 
 	public int getQuantidade() {
 		return quantidade;
