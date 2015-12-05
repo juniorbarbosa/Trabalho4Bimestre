@@ -343,4 +343,18 @@ public class AtualizadorBancoDados {
 
 	}
 
+	public void gravaVenda(Venda venda) throws SQLException {
+		PreparedStatement ps = con
+				.prepareStatement("insert into venda (idvenda, data_2, hora) values (?, ?, ?)");
+
+		ps.setInt(1, venda.getIdVenda());
+		ps.setInt(2, venda.getIdVenda());
+		ps.setString(3, venda.getData());
+		ps.setString(4, venda.getHora());
+
+		ps.executeUpdate();
+
+		ps.close();
+	}
+
 }

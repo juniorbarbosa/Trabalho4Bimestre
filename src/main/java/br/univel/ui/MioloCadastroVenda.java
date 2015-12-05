@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Vector;
 
@@ -22,6 +23,7 @@ import br.univel.util.AtualizadorBancoDados;
 import br.univel.util.Cliente;
 import br.univel.util.Produto;
 import br.univel.util.ProdutoVenda;
+import br.univel.util.Venda;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -243,6 +245,11 @@ public class MioloCadastroVenda extends JPanel {
 		scrollPane.setViewportView(table);
 
 		JButton btnGravar = new JButton("Finalizar");
+		btnGravar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gravarVenda();
+			}
+		});
 		GridBagConstraints gbc_btnGravar = new GridBagConstraints();
 		gbc_btnGravar.insets = new Insets(0, 0, 0, 5);
 		gbc_btnGravar.gridx = 5;
@@ -291,7 +298,32 @@ public class MioloCadastroVenda extends JPanel {
 		item.setQuantidade(Integer.parseInt(quantidade));
 		item.setValorTotal(valor);
 		model.adicionarProdutoTabela(item);
+	}
 
+	private void gravarVenda() {
+		String idVenda = txtNumeroVenda.getText().trim();
+		Object idCliente = cbxCliente.getSelectedItem();
+		String data = txtData.getText().trim();
+		String hora = txtHora.getText().trim();
+
+		Venda venda = new Venda();
+		venda.setIdVenda(Integer.parseInt(idVenda));
+//		venda.setCliente((Cliente) idCliente);
+		venda.setData(data);
+		venda.setHora(hora);
+		
+		gravaVendaBD(venda);
+
+	}
+
+	private void gravaVendaBD(Venda venda) {
+		try {
+			AtualizadorBancoDados grava = new AtualizadorBancoDados();
+			grava.gravaVenda(venda);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }
