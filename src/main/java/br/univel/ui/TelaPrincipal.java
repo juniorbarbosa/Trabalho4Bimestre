@@ -11,6 +11,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 
+import br.univel.relatorios.RelatorioClientesPorCidade;
 import br.univel.relatorios.RelatorioClientesPorEstado;
 
 import java.awt.event.ActionListener;
@@ -106,6 +107,11 @@ public class TelaPrincipal extends JFrame {
 		mnCliente.add(mntmNewMenuItem);
 
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Cidade");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				relatorioClienteCidade();
+			}
+		});
 		mnCliente.add(mntmNewMenuItem_1);
 
 		JMenu mnNewMenu = new JMenu("Produto");
@@ -214,5 +220,12 @@ public class TelaPrincipal extends JFrame {
 	 */
 	private void relatorioClienteEstado() {
 		new RelatorioClientesPorEstado();
+	}
+
+	/**
+	 * método para abrir o relatorio de clientes ordenado por cidade
+	 */
+	private void relatorioClienteCidade() {
+		new RelatorioClientesPorCidade();
 	}
 }
