@@ -23,7 +23,7 @@ public class RelatorioProdutoPorCategoria {
 	private String user = "postgres";
 	private String pass = "univel";
 
-	private static final String OUT_PDF = "ClientesPorCidade.pdf";
+	private static final String OUT_PDF = "ProdutosPorCategoria.pdf";
 	private String relatorio = "C:\\Users\\Junior\\git\\Trabalho4Bimestre\\src\\main\\java\\br\\univel\\relatorios\\ProdutoPorCategoria.jasper";
 
 	/**
