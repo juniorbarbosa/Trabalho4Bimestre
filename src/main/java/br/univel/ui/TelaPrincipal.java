@@ -13,6 +13,8 @@ import javax.swing.JTabbedPane;
 
 import br.univel.relatorios.RelatorioClientesPorCidade;
 import br.univel.relatorios.RelatorioClientesPorEstado;
+import br.univel.relatorios.RelatorioProdutoPorCategoria;
+import br.univel.relatorios.RelatorioProdutoPorMargemLucro;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -116,6 +118,22 @@ public class TelaPrincipal extends JFrame {
 
 		JMenu mnNewMenu = new JMenu("Produto");
 		mnRelatrios.add(mnNewMenu);
+
+		JMenuItem mntmCategoria = new JMenuItem("Categoria");
+		mntmCategoria.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				relatorioProdutoCategoria();
+			}
+		});
+		mnNewMenu.add(mntmCategoria);
+
+		JMenuItem mntmMargemDeLucro = new JMenuItem("Margem de Lucro");
+		mntmMargemDeLucro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				relatorioProdutoMargemLucro();
+			}
+		});
+		mnNewMenu.add(mntmMargemDeLucro);
 
 		JMenu mnVendas = new JMenu("Vendas");
 		mnRelatrios.add(mnVendas);
@@ -227,5 +245,19 @@ public class TelaPrincipal extends JFrame {
 	 */
 	private void relatorioClienteCidade() {
 		new RelatorioClientesPorCidade();
+	}
+
+	/**
+	 * método para abrir o relatorio de produtos ordenado por categoria
+	 */
+	private void relatorioProdutoCategoria() {
+		new RelatorioProdutoPorCategoria();
+	}
+
+	/**
+	 * método para abrir o relatorio de produtos ordenado por categoria
+	 */
+	private void relatorioProdutoMargemLucro() {
+		new RelatorioProdutoPorMargemLucro();
 	}
 }
