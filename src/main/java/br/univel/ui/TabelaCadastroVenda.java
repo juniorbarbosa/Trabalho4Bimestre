@@ -49,6 +49,10 @@ public class TabelaCadastroVenda extends AbstractTableModel {
 
 	}
 
+	/**
+	 * 
+	 * metodo que vai adicionar o produtoVenda na tabela
+	 */
 	public void adicionarProdutoTabela(ProdutoVenda item) {
 		this.lista.add(item);
         super.fireTableStructureChanged();

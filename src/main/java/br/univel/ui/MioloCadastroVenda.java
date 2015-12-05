@@ -279,6 +279,9 @@ public class MioloCadastroVenda extends JPanel {
 		}
 	}
 
+	/**
+	 * metodo que vai adicionar o item, a quantidade e o valor total na tabela.
+	 */
 	private void cadastroItemTabela() {
 		String quantidade = txtQuantidade.getText().trim();
 		String valorTotal = txtTotal.getText().trim();
