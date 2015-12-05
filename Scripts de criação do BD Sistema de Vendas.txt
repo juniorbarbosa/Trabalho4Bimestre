@@ -1,0 +1,52 @@
+CREATE TABLE PRODUTO (
+  idPRODUTO SERIAL  NOT NULL ,
+  NOME VARCHAR(255)    ,
+  CODIGOBARRA VARCHAR(255)    ,
+  CATEGORIA VARCHAR(30)    ,
+  DESCRICAO VARCHAR(255)    ,
+  UNIDADE VARCHAR(30)    ,
+  CUSTO DECIMAL    ,
+  MARGEMLUCRO DECIMAL      ,
+PRIMARY KEY(idPRODUTO));
+
+CREATE TABLE CLIENTE (
+  idCLIENTE SERIAL  NOT NULL ,
+  NOME VARCHAR(255)    ,
+  TELEFONE VARCHAR(20)    ,
+  ENDERECO VARCHAR(255)    ,
+  CIDADE VARCHAR(255)    ,
+  ESTADO VARCHAR(2)    ,
+  EMAIL VARCHAR(255)    ,
+  GENERO VARCHAR(1)      ,
+PRIMARY KEY(idCLIENTE));
+
+CREATE TABLE USUARIO (
+  idUSUARIO SERIAL  NOT NULL ,
+  idCliente INTEGER   NOT NULL ,
+  senha VARCHAR(255)      ,
+PRIMARY KEY(idUSUARIO)  ,
+  FOREIGN KEY(idCliente)
+    REFERENCES Cliente(idCliente));
+
+	CREATE TABLE Venda (
+  idVenda SERIAL  NOT NULL ,
+  idCliente INTEGER   NOT NULL ,
+  data_2 VARCHAR(10)    ,
+  hora VARCHAR(8)      ,
+PRIMARY KEY(idVenda)  ,
+  FOREIGN KEY(idCliente)
+    REFERENCES Cliente(idCliente));
+	
+CREATE TABLE ProdutosVenda (
+  idProdutosVenda SERIAL  NOT NULL ,
+  Venda_idVenda INTEGER   NOT NULL ,
+  Produto_idProduto INTEGER   NOT NULL ,
+  quantidade INTEGER    ,
+  valorTotal DECIMAL    ,
+  valorPago DECIMAL    ,
+  troco DECIMAL      ,
+PRIMARY KEY(idProdutosVenda, Venda_idVenda, Produto_idProduto)    ,
+  FOREIGN KEY(Venda_idVenda)
+    REFERENCES Venda(idVenda),
+  FOREIGN KEY(Produto_idProduto)
+    REFERENCES Produto(idProduto));
