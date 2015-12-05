@@ -11,6 +11,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 
+import br.univel.relatorios.RelatorioClientesPorEstado;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -88,6 +90,29 @@ public class TelaPrincipal extends JFrame {
 
 		});
 		mnCadastro.add(mntmProduto);
+
+		JMenu mnRelatrios = new JMenu("Relat\u00F3rios");
+		menuBar.add(mnRelatrios);
+
+		JMenu mnCliente = new JMenu("Cliente");
+		mnRelatrios.add(mnCliente);
+
+		JMenuItem mntmNewMenuItem = new JMenuItem("Estado");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				relatorioClienteEstado();
+			}
+		});
+		mnCliente.add(mntmNewMenuItem);
+
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Cidade");
+		mnCliente.add(mntmNewMenuItem_1);
+
+		JMenu mnNewMenu = new JMenu("Produto");
+		mnRelatrios.add(mnNewMenu);
+
+		JMenu mnVendas = new JMenu("Vendas");
+		mnRelatrios.add(mnVendas);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -161,7 +186,7 @@ public class TelaPrincipal extends JFrame {
 		mostraAbaSelecionada();
 
 	}
-	
+
 	/**
 	 * Método para abrir a aba de cadastro de venda
 	 */
@@ -182,5 +207,12 @@ public class TelaPrincipal extends JFrame {
 	 */
 	private void mostraAbaSelecionada() {
 		tabbedPane.setSelectedIndex(tabbedPane.getTabCount() - 1);
+	}
+
+	/**
+	 * método para abrir o relatorio de clientes ordenado por estado
+	 */
+	private void relatorioClienteEstado() {
+		new RelatorioClientesPorEstado();
 	}
 }

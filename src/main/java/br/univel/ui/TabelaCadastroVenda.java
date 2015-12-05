@@ -1,9 +1,7 @@
 package br.univel.ui;
 
 import java.util.ArrayList;
-
 import javax.swing.table.AbstractTableModel;
-
 import br.univel.util.ProdutoVenda;
 
 /**

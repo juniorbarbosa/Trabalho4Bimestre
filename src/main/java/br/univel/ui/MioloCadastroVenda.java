@@ -1,22 +1,17 @@
 package br.univel.ui;
 
 import javax.swing.JPanel;
-
 import java.awt.GridBagLayout;
-
 import javax.swing.JLabel;
-
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.util.List;
 import java.util.Vector;
-
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
 import br.univel.util.AtualizadorBancoDados;
 import br.univel.util.Cliente;
 import br.univel.util.Produto;
@@ -113,7 +108,7 @@ public class MioloCadastroVenda extends JPanel {
 		gbc_lblNewLabel_3.gridy = 0;
 		add(lblNewLabel_3, gbc_lblNewLabel_3);
 
-		AdicionarValorCbxCliente();
+		adicionarValorCbxCliente();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -129,7 +124,7 @@ public class MioloCadastroVenda extends JPanel {
 		gbc_lblProduto.gridy = 1;
 		add(lblProduto, gbc_lblProduto);
 
-		AdicionarValorCbxProduto();
+		adicionarValorCbxProduto();
 		GridBagConstraints gbc_comboBox_1 = new GridBagConstraints();
 		gbc_comboBox_1.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox_1.fill = GridBagConstraints.HORIZONTAL;
@@ -241,7 +236,7 @@ public class MioloCadastroVenda extends JPanel {
 
 	}
 
-	private void AdicionarValorCbxCliente() {
+	private void adicionarValorCbxCliente() {
 		try {
 			AtualizadorBancoDados atualiza = new AtualizadorBancoDados();
 			List<Cliente> lista = atualiza.listaClienteTelaCadastroUsuario();
@@ -255,7 +250,7 @@ public class MioloCadastroVenda extends JPanel {
 		}
 	}
 
-	private void AdicionarValorCbxProduto() {
+	private void adicionarValorCbxProduto() {
 		try {
 			AtualizadorBancoDados atualiza = new AtualizadorBancoDados();
 			List<Produto> lista = atualiza.listaProdutoComboBox();

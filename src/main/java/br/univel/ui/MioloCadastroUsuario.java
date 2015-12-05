@@ -63,7 +63,7 @@ public class MioloCadastroUsuario extends JPanel {
 		gbc_lblNewLabel.gridy = 0;
 		add(lblNewLabel, gbc_lblNewLabel);
 
-		AdicionarValorCbxIdCliente();
+		adicionarValorCbxIdCliente();
 
 		GridBagConstraints gbc_cbxIdCliente = new GridBagConstraints();
 		gbc_cbxIdCliente.gridwidth = 3;
@@ -171,7 +171,7 @@ public class MioloCadastroUsuario extends JPanel {
 		adicionarValorCampos();
 	}
 
-	private void AdicionarValorCbxIdCliente() {
+	private void adicionarValorCbxIdCliente() {
 		try {
 			AtualizadorBancoDados atualiza = new AtualizadorBancoDados();
 			List<Cliente> lista = atualiza.listaClienteTelaCadastroUsuario();
