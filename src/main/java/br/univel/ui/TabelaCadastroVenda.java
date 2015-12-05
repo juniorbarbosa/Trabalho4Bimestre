@@ -25,11 +25,11 @@ public class TabelaCadastroVenda extends AbstractTableModel {
 		ProdutoVenda produto = lista.get(row);
 		switch (column) {
 		case 0:
-			produto.getNomeProduto();
+			return produto.getNomeProduto();
 		case 1:
-			produto.getQuantidade();
+			return produto.getQuantidade();
 		case 2:
-			produto.getValorTotal();
+			return produto.getValorTotal();
 		}
 		return "Erro";
 	}
@@ -47,6 +47,11 @@ public class TabelaCadastroVenda extends AbstractTableModel {
 
 		return "Erro";
 
+	}
+
+	public void adicionarProdutoTabela(ProdutoVenda item) {
+		this.lista.add(item);
+        super.fireTableStructureChanged();
 	}
 
 }

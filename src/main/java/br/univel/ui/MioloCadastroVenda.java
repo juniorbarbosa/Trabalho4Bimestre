@@ -1,20 +1,30 @@
 package br.univel.ui;
 
 import javax.swing.JPanel;
+
 import java.awt.GridBagLayout;
+
 import javax.swing.JLabel;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Vector;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
 import br.univel.util.AtualizadorBancoDados;
 import br.univel.util.Cliente;
 import br.univel.util.Produto;
+import br.univel.util.ProdutoVenda;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * 
@@ -201,6 +211,11 @@ public class MioloCadastroVenda extends JPanel {
 		txtTroco.setColumns(10);
 
 		JButton btnAdicionarItem = new JButton("Adicionar item");
+		btnAdicionarItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cadastroItemTabela();
+			}
+		});
 		GridBagConstraints gbc_btnAdicionarItem = new GridBagConstraints();
 		gbc_btnAdicionarItem.insets = new Insets(0, 0, 5, 5);
 		gbc_btnAdicionarItem.gridx = 1;
@@ -262,6 +277,18 @@ public class MioloCadastroVenda extends JPanel {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void cadastroItemTabela() {
+		String quantidade = txtQuantidade.getText().trim();
+		String valorTotal = txtTotal.getText().trim();
+		BigDecimal valor = new BigDecimal(valorTotal);
+		ProdutoVenda item = new ProdutoVenda();
+		item.setNomeProduto(cbxProduto.getSelectedItem().toString());
+		item.setQuantidade(Integer.parseInt(quantidade));
+		item.setValorTotal(valor);
+		model.adicionarProdutoTabela(item);
+
 	}
 
 }
