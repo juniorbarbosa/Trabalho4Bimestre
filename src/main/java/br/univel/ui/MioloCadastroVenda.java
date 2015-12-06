@@ -300,6 +300,10 @@ public class MioloCadastroVenda extends JPanel {
 		model.adicionarProdutoTabela(item);
 	}
 
+	
+	/**
+	 * método para gravar a venda no BD.
+	 */
 	private void gravarVenda() {
 		String idVenda = txtNumeroVenda.getText().trim();
 		Object idCliente = cbxCliente.getSelectedItem();
@@ -316,6 +320,10 @@ public class MioloCadastroVenda extends JPanel {
 
 	}
 
+	/**
+	 * 
+	 * método para instanciar o método para gravação da venda no Bd.
+	 */
 	private void gravaVendaBD(Venda venda) {
 		try {
 			AtualizadorBancoDados grava = new AtualizadorBancoDados();

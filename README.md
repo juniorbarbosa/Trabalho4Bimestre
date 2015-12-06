@@ -1,1 +1,3 @@
 # Trabalho4Bimestre
+* Para que o programa rode normalmente deve ser criado um Banco de Dados iguais os do arquivo "Scripts de criação do BD Sistema de Vendas.txt" que já está no repósitorio.
+* Foi utilizado o padrão de projeto façade em quase todas as classes, para organização do código, já que foi utilizado mais um método no momento que a tela é iniciada, ao utilizar esse padrão deixamos todos os métodos organizados dentro dele, para que não fiquem varias chamadas de métodos em locais diferentes.
